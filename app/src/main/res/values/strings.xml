@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">UroCareApp</string>
+    <string name="personal_info">Información Personal</string>
+    <string name="consejos">Consejos</string>
+    <string name="pruebas_pdtes">Pruebas Pendientes</string>
+    <string name="pedir_cita">Pedir Cita</string>
+    <string name="consultar_tto">Tratamiento Actual</string>
+
+    <string name="email">Correo electrónico</string>
+    <string name="passwd">Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellidos</string>
+    <string name="birthday">Fecha nacimiento</string>
+    <string name="telf">Teléfono</string>
+    <string name="Sex">Sexo:</string>
+    <string name="none">N/C</string>
+    <string name="Female">Mujer</string>
+    <string name="Male">Hombre</string>
+    <string name="uppdate">Actualizar</string>
+    <string name="signUp">Registrarse</string>
+    <string name="login">Acceder</string>
+    <string name="signOut">Cerrar Sesión</string>
+    <string name="footer_image_desc">Foto</string>
+
 </resources>

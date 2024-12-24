@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.a2425fibroappclase.modelo.Alert
+import com.example.urocareapp.HomePaciente
 import com.example.urocareapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -96,7 +97,7 @@ class AuthActivity : AppCompatActivity() {
         Firebase.firestore.collection("Medicos")
             .document(email).get().addOnSuccessListener {
                 if(it.exists()){
-                    startActivity(Intent(this, HomeMedicoActivity::class.java))
+                    //startActivity(Intent(this, HomeMedicoActivity::class.java))
                 }else{
                     startActivity(Intent(this, HomePaciente::class.java))
                 }
