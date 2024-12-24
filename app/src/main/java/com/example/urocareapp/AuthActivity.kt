@@ -1,4 +1,4 @@
-package com.example.a2425fibroappclase
+package com.example.urocareapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,11 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import com.example.a2425fibroappclase.modelo.Alert
-import com.example.urocareapp.HomePaciente
-import com.example.urocareapp.R
+import com.example.urocareapp.modelo.Alert
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -36,10 +32,6 @@ class AuthActivity : AppCompatActivity() {
         passwd = findViewById(R.id.passwdEditText)
         auth = Firebase.auth //esto no esta en ningun sitio, simplemente lo inicializamos
         btnAcceder = findViewById(R.id.btnAcceder)
-
-
-
-
         // Función donde haremos la lógica de la autenticación
         setup()
     }
@@ -65,7 +57,7 @@ class AuthActivity : AppCompatActivity() {
                     } else{
                         // Si ha habido algún fallo que aparezca un Toast
                         //Toast.makeText(this,"Fallo en el registro",Toast.LENGTH_SHORT).show() //Aviso de fallo en el registro
-                        Alert.showAlert(this,"Fallo en el registro") //Para que se muestre el mensaje de abajo al fallar el registro
+                        Alert.showAlert(this, "Fallo en el registro", Alert.AlertType.ERROR)
                     }
                 }
             }
@@ -79,11 +71,12 @@ class AuthActivity : AppCompatActivity() {
                 ).addOnCompleteListener{task ->
                     if(task.isSuccessful){
                         Log.i("INFO", "Usuario logeado correctamente")
+                        Alert.showAlert(this, "Registro exitoso", Alert.AlertType.SUCCESS)
                         showHome(email.text.toString()) //Se ejecuta la funcion de abajo que hace que se vaya al main del medico o del paciente
                         email.text.clear()
                         passwd.text.clear()
                     }else{
-                        Alert.showAlert(this, "Error logueando al usuario")
+                        Alert.showAlert(this, "Fallo en el registro", Alert.AlertType.ERROR)
                     }
                 }
             }
