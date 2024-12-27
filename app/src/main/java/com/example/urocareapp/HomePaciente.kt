@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 //        setSupportActionBar(findViewById(R.id.toolbar))
-class HomePaciente : AppCompatActivity() {
+class HomePaciente : BaseActivity() {
+    override val currentScreen: Int = R.id.nav_home
     private lateinit var btnPantallaInfo: Button
 //    private lateinit var btnCitas: Button
 //    private lateinit var btnPruebas: Button
@@ -15,10 +17,39 @@ class HomePaciente : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_paciente)
 
+
         btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
         btnPantallaInfo.setOnClickListener {
             val intent = Intent(this, PantallaInfo::class.java)
             startActivity(intent)
+        }
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    // Lógica para el ítem "Home"
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    // Lógica para el ítem "Profile"
+                    true
+                }
+
+                R.id.nav_calendar -> {
+                    // Lógica para el ítem "Settings"
+                    true
+                }
+
+                R.id.nav_info -> {
+                    val intent = Intent(this, PantallaInfo::class.java)
+                    startActivity(intent)
+                    true
+                }
+
+                else -> false
+            }
         }
 
         /*

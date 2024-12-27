@@ -10,7 +10,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="80dp"
         android:text="¿Qué te gustaría hacer hoy?"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botón 1: Preparación preoperatoria -->
+    <!-- Botones principales -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPantallaInfo"
         android:layout_width="0dp"
@@ -38,7 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleText" />
 
-    <!-- Botón 2: Cuidados postcirugía -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCuidados"
         android:layout_width="0dp"
@@ -57,7 +56,6 @@
         app:layout_constraintStart_toEndOf="@id/btnPantallaInfo"
         app:layout_constraintTop_toBottomOf="@id/titleText" />
 
-    <!-- Botón 3: Consejos alimentarios -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnConsejos"
         android:layout_width="0dp"
@@ -76,7 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnPantallaInfo" />
 
-    <!-- Botón 4: Seguimiento de hábitos -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnHabitos"
         android:layout_width="0dp"
@@ -94,5 +91,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnConsejos" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <include layout="@layout/toolbar_paciente"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
