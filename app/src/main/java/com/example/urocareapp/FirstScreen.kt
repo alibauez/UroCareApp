@@ -14,10 +14,10 @@ class FirstScreen : AppCompatActivity() {
         setContentView(R.layout.activity_first_screen)
 
         val btnAcceso = findViewById<Button>(R.id.btnAcceso)
-        val intent = Intent(this, AuthActivity::class.java)
+        val goToAuthIntent = Intent(this, AuthActivity::class.java)
 
         btnAcceso.setOnClickListener {
-            startActivity(intent)
+            startActivity(goToAuthIntent)
         }
     }
 }

@@ -25,6 +25,7 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var btnAcceder: Button
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -78,7 +79,8 @@ class AuthActivity : AppCompatActivity() {
                     if(task.isSuccessful){
                         Log.i("INFO", "Usuario logeado correctamente")
                         Alert.showAlert(this, "Inicio de seción correcto", Alert.AlertType.SUCCESS)
-                        showHome(email.text.toString()) //Se ejecuta la funcion de abajo que hace que se vaya al main del medico o del paciente
+                        val goToActivityHomeintent = Intent(this, HomePaciente::class.java)
+                        startActivity(goToActivityHomeintent)
                         email.text.clear()
                         passwd.text.clear()
                     }else{
