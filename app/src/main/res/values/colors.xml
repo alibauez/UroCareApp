@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#E7ECEF</color>
-    <color name="primary">#499167</color>
+    <color name="primary">#38E078</color>
     <color name="secondary">#816249</color>
-    #816249
+    <color name="fondoLogin">#16637587</color>
+    <color name="grey">#808080</color>
 </resources>

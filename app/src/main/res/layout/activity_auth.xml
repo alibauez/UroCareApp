@@ -4,32 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".AuthActivity">
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/email"
+        android:paddingStart="32dp"
         android:inputType="textEmailAddress"
+        android:background="@drawable/edittext_rounded"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwdEditText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:layout_height="56dp"
         android:hint="@string/passwd"
+        android:paddingStart="32dp"
         android:inputType="textPassword"
+        android:background="@drawable/edittext_rounded"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
@@ -38,25 +44,56 @@
         android:id="@+id/btnRegistro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/white"
         android:text="@string/signUp"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/btnAcceder"
-        app:layout_constraintStart_toStartOf="@+id/passwdEditText"
-        app:layout_constraintTop_toBottomOf="@+id/passwdEditText" />
-
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAcceder" />
     <Button
         android:id="@+id/btnAcceder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:backgroundTint="@color/secondary"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/primary"
         android:text="@string/login"
-        android:textAllCaps="true"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/passwdEditText"
-        app:layout_constraintStart_toEndOf="@+id/btnRegistro"
-        app:layout_constraintTop_toTopOf="@+id/btnRegistro" />
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwdEditText" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="Inicia sesión en UroCare"
+
+        android:textColor="#000000"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
+        android:text="@string/recuperarPassw"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/btnAcceder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwdEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

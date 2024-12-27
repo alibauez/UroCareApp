@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.urocareapp.modelo.Alert
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,6 +23,7 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var passwd: EditText
     private lateinit var auth: FirebaseAuth //variable de tipo FirebaseAuth para la autenticacion
     private lateinit var btnAcceder: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +41,10 @@ class AuthActivity : AppCompatActivity() {
     }
 
     fun setup(){
+
         // Aquí pondremos la lógica de los botones de autenticación
         btnRegistro.setOnClickListener {
+
             // Comprobar que el correo electrónico y la contraseña no estén vacíos
             if(email.text.isNotBlank() && passwd.text.isNotBlank()){
                 // sí podemos registrar al usuario
@@ -57,7 +63,7 @@ class AuthActivity : AppCompatActivity() {
                     } else{
                         // Si ha habido algún fallo que aparezca un Toast
                         //Toast.makeText(this,"Fallo en el registro",Toast.LENGTH_SHORT).show() //Aviso de fallo en el registro
-                        Alert.showAlert(this, "Fallo en el registro", Alert.AlertType.ERROR)
+                    Alert.showAlert(this, "Registro fallido", Alert.AlertType.ERROR)
                     }
                 }
             }
@@ -71,12 +77,12 @@ class AuthActivity : AppCompatActivity() {
                 ).addOnCompleteListener{task ->
                     if(task.isSuccessful){
                         Log.i("INFO", "Usuario logeado correctamente")
-                        Alert.showAlert(this, "Registro exitoso", Alert.AlertType.SUCCESS)
+                        Alert.showAlert(this, "Inicio de seción correcto", Alert.AlertType.SUCCESS)
                         showHome(email.text.toString()) //Se ejecuta la funcion de abajo que hace que se vaya al main del medico o del paciente
                         email.text.clear()
                         passwd.text.clear()
                     }else{
-                        Alert.showAlert(this, "Fallo en el registro", Alert.AlertType.ERROR)
+                        Alert.showAlert(this, "Fallo en el inicio de sesión", Alert.AlertType.ERROR)
                     }
                 }
             }
