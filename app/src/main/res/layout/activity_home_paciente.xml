@@ -10,7 +10,7 @@
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="80dp"
         android:text="¿Qué te gustaría hacer hoy?"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -19,151 +19,82 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Preparación preoperatoria -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardPreparacion"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/secondary"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/cardCuidados"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleText">
-
-        <LinearLayout
-            android:id="@+id/btnPantallaInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Icono de calendario"
-                android:src="@drawable/ic_med" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Preparación preoperatoria"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Cuidados postcirugía -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardCuidados"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/secondary"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardPreparacion"
-        app:layout_constraintTop_toBottomOf="@id/titleText">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Icono de casa"
-                android:src="@drawable/ic_post" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cuidados postcirugía"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Consejos alimentarios -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardConsejos"
+    <!-- Botones principales -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPantallaInfo"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/secondary"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/primary"
+        android:text="Preparación operación"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:icon="@drawable/ic_med"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnCuidados"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardPreparacion">
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary"
-            android:backgroundTint="@color/primary"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Icono de consejos"
-                android:src="@drawable/ic_tip" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Consejos alimentarios"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <!-- Seguimiento de hábitos -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardHabitos"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCuidados"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/secondary"
-        app:cardCornerRadius="8dp"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/primary"
+        android:text="Cuidados postcirugía"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:icon="@drawable/ic_post"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnPantallaInfo"
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConsejos"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/primary"
+        android:text="Consejos alimentarios"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:icon="@drawable/ic_tip"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardConsejos">
+        app:layout_constraintTop_toBottomOf="@id/btnPantallaInfo" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHabitos"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="12dp"
+        android:backgroundTint="@color/primary"
+        android:text="Seguimiento de hábitos"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:icon="@drawable/ic_hab"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnConsejos" />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:contentDescription="Icono de hábitos"
-                android:src="@drawable/ic_hab" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Seguimiento de hábitos"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+
+    <include layout="@layout/toolbar_paciente"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-

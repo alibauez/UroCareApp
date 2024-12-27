@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_color">#E7ECEF</color>
     <color name="primary">#38E078</color>
-    <color name="secondary">#816249</color>
     <color name="fondoLogin">#16637587</color>
     <color name="grey">#808080</color>
+    <color name="secondary">#B5DFCA</color>
 </resources>

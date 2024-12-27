@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
+//        setSupportActionBar(findViewById(R.id.toolbar))
+class HomePaciente : BaseActivity() {
 
-class HomePaciente : AppCompatActivity() {
     private lateinit var btnPantallaInfo: Button
 //    private lateinit var btnCitas: Button
 //    private lateinit var btnPruebas: Button
@@ -14,15 +16,17 @@ class HomePaciente : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_paciente)
-//        setSupportActionBar(findViewById(R.id.toolbar))
+
+
+        btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
+        btnPantallaInfo.setOnClickListener {
+            val intent = Intent(this, PantallaInfo::class.java)
+            startActivity(intent)
+        }
 
 
 
 
-//        btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
-//        btnPantallaInfo.setOnClickListener{
-//            setContentView(R.layout.activity_pantallainfo)
-//        }
         /*
         btnCitas = findViewById(R.id.btnCitas)
         btnCitas.setOnClickListener {
