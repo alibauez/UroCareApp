@@ -33,6 +33,10 @@
         <activity
             android:name=".AuthActivity"
             android:exported="true" />
+        <activity
+            android:name=".PantallaInfo"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ class AuthActivity : AppCompatActivity() {
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
@@ -42,6 +43,8 @@ class AuthActivity : AppCompatActivity() {
     }
 
     fun setup(){
+        val btnResetPass = findViewById<Button>(R.id.btnResetPassword)
+        val resetPasswordIntent = Intent(this, ResetPassActivity::class.java)
 
         // Aquí pondremos la lógica de los botones de autenticación
         btnRegistro.setOnClickListener {
@@ -89,6 +92,11 @@ class AuthActivity : AppCompatActivity() {
                 }
             }
         }
+
+        btnResetPass.setOnClickListener {
+            startActivity(resetPasswordIntent)
+        }
+
     }
 
     //Si es un medico registrado en la base de datos, va al activity del medico, si no al paciente

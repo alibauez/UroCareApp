@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".PantallaInfo">
 
     <LinearLayout
@@ -77,21 +78,15 @@
         </LinearLayout>
 
         <!-- Botón Siguiente -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#499167"
+            android:backgroundTint="@color/primary"
             android:text="Siguiente"
-            android:textColor="#FFFFFF"
+            app:cornerRadius="15dp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
-
-    
-
-
-    <include layout="@layout/toolbar_paciente"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

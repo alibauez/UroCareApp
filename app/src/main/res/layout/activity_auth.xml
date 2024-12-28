@@ -54,13 +54,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAcceder" />
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAcceder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="16dp"
+        app:cornerRadius="15dp"
         android:backgroundTint="@color/primary"
         android:text="@string/login"
         android:textStyle="bold"

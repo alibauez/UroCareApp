@@ -3,9 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color">
+    android:background="@android:color/white">
+
 
     <!-- Título principal -->
+
+    <!-- Botones principales -->
+
     <TextView
         android:id="@+id/titleText"
         android:layout_width="wrap_content"
@@ -16,20 +20,21 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botones principales -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnPantallaInfo"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/primary_claro"
         android:text="Preparación operación"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:cornerRadius="5dp"
+        app:iconTint="@color/black"
+        app:cornerRadius="15dp"
         app:icon="@drawable/ic_med"
         app:iconGravity="start"
         app:iconPadding="8dp"
@@ -43,11 +48,12 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/primary_claro"
         android:text="Cuidados postcirugía"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:cornerRadius="5dp"
+        app:cornerRadius="15dp"
+        app:iconTint="@color/black"
         app:icon="@drawable/ic_post"
         app:iconGravity="start"
         app:iconPadding="8dp"
@@ -61,11 +67,12 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/primary_claro"
         android:text="Consejos alimentarios"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:cornerRadius="5dp"
+        app:iconTint="@color/black"
+        app:cornerRadius="15dp"
         app:icon="@drawable/ic_tip"
         app:iconGravity="start"
         app:iconPadding="8dp"
@@ -79,15 +86,16 @@
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
-        android:backgroundTint="@color/primary"
+        android:backgroundTint="@color/primary_claro"
         android:text="Seguimiento de hábitos"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
-        app:cornerRadius="5dp"
+        app:cornerRadius="15dp"
         app:icon="@drawable/ic_hab"
         app:iconGravity="start"
         app:iconPadding="8dp"
         app:iconSize="32dp"
+        app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnConsejos" />
