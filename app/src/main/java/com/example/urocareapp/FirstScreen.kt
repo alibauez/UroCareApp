@@ -15,9 +15,17 @@ class FirstScreen : AppCompatActivity() {
 
         val btnAcceso = findViewById<Button>(R.id.btnAcceso)
         val goToAuthIntent = Intent(this, AuthActivity::class.java)
+        // Agrega esta parte para el button3
+        val button3 = findViewById<Button>(R.id.button3) // Asegúrate que el ID sea correcto
+        val goToTermsConditionsIntent = Intent(this, TermsConditionsActivity::class.java)
 
         btnAcceso.setOnClickListener {
             startActivity(goToAuthIntent)
         }
+
+        button3.setOnClickListener {
+            startActivity(goToTermsConditionsIntent)
+        }
+
     }
 }

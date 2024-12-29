@@ -25,5 +25,75 @@
     <string name="acceso">Acceso</string>
     <string name="privacidad">Uso sujeto a términos y condiciones | Política de privacidad</string>
 
+    <!-- Términos y Condiciones -->
+    <string name="terms_and_conditions_title">Términos y Condiciones</string>
+    <string name="terms_acceptance">
+        1. Aceptación de los Términos\n\n
+        Al utilizar esta aplicación, aceptas los términos y condiciones aquí descritos. Si no estás de acuerdo con alguno de estos términos, te pedimos que no utilices la aplicación.
+    </string>
+    <string name="terms_usage">
+        2. Uso de la Aplicación\n\n
+        - Esta aplicación está destinada únicamente para uso personal y no comercial.\n
+        - No debes realizar ingeniería inversa, descompilar ni modificar la aplicación de ninguna manera.
+    </string>
+    <string name="terms_intellectual_property">
+        3. Propiedad Intelectual\n\n
+        Todos los derechos, títulos e intereses relacionados con el contenido, las funciones y el diseño de esta aplicación son propiedad de UroCareApp. Queda estrictamente prohibida la reproducción o distribución sin permiso.
+    </string>
+    <string name="terms_liability">
+        4. Limitación de Responsabilidad\n\n
+        El uso de esta aplicación es bajo tu propio riesgo. UroCareApp no será responsable de ningún daño directo, indirecto, incidental o consecuente derivado del uso o la imposibilidad de uso de la aplicación.
+    </string>
+    <string name="terms_changes">
+        5. Cambios en los Términos\n\n
+        Nos reservamos el derecho de modificar estos términos en cualquier momento. Se notificará a los usuarios de los cambios mediante actualizaciones en la aplicación o por otros medios.
+    </string>
+    <string name="terms_contact">
+        6. Contacto\n\n
+        Si tienes dudas sobre estos términos, puedes contactarnos en laboratoriosclinicosas@gmail.com.
+    </string>
+
+    <!-- Política de Privacidad -->
+    <string name="privacy_policy_title">Política de Privacidad</string>
+    <string name="privacy_info_collection">
+        1. Información que Recopilamos\n\n
+        - Información personal: Como nombre, correo electrónico o número de teléfono, que nos proporcionas al registrarte.\n
+        - Datos de uso: Información sobre cómo utilizas la aplicación, como las páginas visitadas y las acciones realizadas.
+    </string>
+    <string name="privacy_info_usage">
+        2. Uso de la Información\n\n
+        La información recopilada se utiliza para:\n
+        - Proporcionar y mejorar nuestros servicios.\n
+        - Personalizar la experiencia del usuario.\n
+        - Comunicarnos contigo sobre actualizaciones y promociones (si lo has permitido).
+    </string>
+    <string name="privacy_info_sharing">
+        3. Compartir Información\n\n
+        Nunca compartiremos tu información personal con terceros, excepto en los siguientes casos:\n
+        - Si es requerido por ley.\n
+        - Para proteger nuestros derechos legales.\n
+        - Con proveedores de servicios.
+    </string>
+    <string name="privacy_info_security">
+        4. Seguridad de la Información\n\n
+        Hemos implementado medidas de seguridad para proteger tu información personal contra accesos no autorizados, alteraciones o pérdidas.
+    </string>
+    <string name="privacy_policy_changes">
+        5. Cambios en la Política\n\n
+        Podemos actualizar esta política de privacidad periódicamente. Te recomendamos revisar esta sección con regularidad para estar informado sobre cualquier cambio.
+    </string>
+    <string name="privacy_contact">
+        6. Contacto\n\n
+        Para cualquier consulta sobre esta política de privacidad, escríbenos a laboratoriosclinicosas@gmail.com.
+    </string>
+
+    <string name="acceptTerms">Acepto los términos y condiciones</string>
+
+
+    <string-array name="text_list">
+        <item>Beber 8 vasos de agua al día durante 2 semanas antes del procedimiento.</item>
+        <item>Evitar el consumo de alcohol y tabaco antes de la cirugía.</item>
+        <item>Dormir al menos 8 horas la noche anterior al procedimiento.</item>
+    </string-array>
 
 </resources>
