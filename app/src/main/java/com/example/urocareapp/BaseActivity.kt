@@ -7,18 +7,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 abstract class BaseActivity : AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setSupportActionBar(findViewById(R.id.toolbar))
 
-
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -29,15 +25,20 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection.
         return when (item.itemId) {
-            R.id.action_home -> {
+            R.id.item_home -> {
                 startActivity(Intent(this, HomePaciente::class.java))
                 true
             }
-//            R.id.item_salir -> {
-//                Firebase.auth.signOut()
-//                startActivity(Intent(this, AuthActivity::class.java))
-//                true
-//            }
+            R.id.item_salir -> {
+                Firebase.auth.signOut()
+                startActivity(Intent(this, AuthActivity::class.java))
+                true
+            }
+            R.id.item_perfil -> {
+                startActivity(Intent(this, PerfilPaciente::class.java))
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

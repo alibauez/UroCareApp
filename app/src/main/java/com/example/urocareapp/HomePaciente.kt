@@ -11,6 +11,9 @@ class HomePaciente : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_paciente)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+
         btnPantallaInfo = findViewById(R.id.btnPantallaInfo) // Inicializa aquí
         setup()
     }

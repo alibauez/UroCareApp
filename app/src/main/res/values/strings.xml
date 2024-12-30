@@ -25,5 +25,16 @@
     <string name="acceso">Acceso</string>
     <string name="privacidad">Uso sujeto a términos y condiciones | Política de privacidad</string>
 
+    <string-array name="blood_group_options">
+        <item>0-</item>
+        <item>0+</item>
+        <item>A-</item>
+        <item>A+</item>
+        <item>B-</item>
+        <item>B+</item>
+        <item>AB-</item>
+        <item>AB+</item>
+    </string-array>
+
 
 </resources>

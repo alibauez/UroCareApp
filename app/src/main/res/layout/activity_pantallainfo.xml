@@ -89,4 +89,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <include layout="@layout/toolbar_paciente"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

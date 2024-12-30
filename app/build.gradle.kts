@@ -44,11 +44,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation ("com.google.android.material:material:1.9.0")
+    implementation("com.google.firebase:firebase-firestore")
 
 
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))

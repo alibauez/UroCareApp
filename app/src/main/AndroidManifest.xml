@@ -37,6 +37,10 @@
             android:name=".PantallaInfo"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".PerfilPaciente"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
