@@ -23,6 +23,7 @@ class PantallaInfo : BaseActivity() {
         setContentView(R.layout.activity_pantallainfo)
         // Lista de textos que rotarán en el TextView
         textList = resources.getStringArray(R.array.text_list).toList()
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // Vinculamos las vistas
         descriptionText = findViewById(R.id.descriptionText)

@@ -94,4 +94,6 @@
             app:cornerRadius="15dp" />
     </LinearLayout>
 
+    <include layout="@layout/toolbar_paciente"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

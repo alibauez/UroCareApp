@@ -94,5 +94,16 @@
         <item>Evitar el consumo de alcohol y tabaco antes de la cirugía.</item>
         <item>Dormir al menos 8 horas la noche anterior al procedimiento.</item>
     </string-array>
+    <string-array name="blood_group_options">
+        <item>0-</item>
+        <item>0+</item>
+        <item>A-</item>
+        <item>A+</item>
+        <item>B-</item>
+        <item>B+</item>
+        <item>AB-</item>
+        <item>AB+</item>
+    </string-array>
+
 
 </resources>
