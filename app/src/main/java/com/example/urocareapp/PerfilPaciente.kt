@@ -64,7 +64,7 @@ class PerfilPaciente : BaseActivity() {
         bloodGroupSpinner.adapter = adapter
 
         // Establecer el valor inicial (opcional, basado en Firebase)
-        val user = Firebase.auth.currentUser
+
         val userBloodGroup = "0+" // Cambiar esto para cargar desde la base de datos o un campo específico
         val initialPosition = bloodGroupOptions.indexOf(userBloodGroup)
         if (initialPosition >= 0) {
@@ -78,11 +78,11 @@ class PerfilPaciente : BaseActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedGroup = bloodGroupOptions[position]
                 // Guardar en Firebase o en tu base de datos
-                val user = Firebase.auth.currentUser
+
                 val profileUpdates = userProfileChangeRequest {
                     displayName = selectedGroup // Solo como ejemplo, ajusta esto según tu estructura
                 }
-                user?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+                user1?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d("Firebase", "Grupo sanguíneo actualizado: $selectedGroup")
                     }
