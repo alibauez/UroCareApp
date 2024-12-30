@@ -7,9 +7,7 @@
     android:background="@android:color/white">
 
 
-    <!-- Título principal -->
 
-    <!-- Botones principales -->
 
     <TextView
         android:id="@+id/titleText"
