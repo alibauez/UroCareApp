@@ -2,24 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="16dp">
 
     <!-- Calendar View -->
     <CalendarView
+
         android:id="@+id/calendarView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"/>
     <!-- Button to Add Event -->
+
+
+    <!-- RecyclerView to show upcoming events -->
+
     <Button
         android:id="@+id/addEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary"
         android:text="Añadir Evento"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:cornerRadius="15dp" />
 
-    <!-- RecyclerView to show upcoming events -->
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary"
+        android:text="Volver"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:cornerRadius="15dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecyclerView"
         android:layout_width="match_parent"
@@ -27,4 +46,6 @@
         android:layout_weight="1"
         android:layout_marginTop="16dp"/>
 
+
 </LinearLayout>
+
