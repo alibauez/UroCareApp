@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.modelo.Event
 import com.example.urocareapp.modelo.EventsAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,7 +29,10 @@ class CalendarActivity : AppCompatActivity() {
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var btnBack: Button
 
-    // List to store events
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+
+    // List to store events (local cache)
     private val eventsList = mutableListOf<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,19 +45,18 @@ class CalendarActivity : AppCompatActivity() {
         addEventButton = findViewById(R.id.addEventButton)
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
 
-        val intentBack = Intent(this, HomePaciente::class.java)
-
-        // Set up RecyclerView
+        // Setup RecyclerView
         eventsAdapter = EventsAdapter(eventsList)
         eventsRecyclerView.layoutManager = LinearLayoutManager(this)
         eventsRecyclerView.adapter = eventsAdapter
 
         // Back button click listener
         btnBack.setOnClickListener {
+            val intentBack = Intent(this, HomePaciente::class.java)
             startActivity(intentBack)
         }
 
-        // Set calendar date change listener
+        // Calendar date change listener
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val selectedDate = Calendar.getInstance()
             selectedDate.set(year, month, dayOfMonth)
@@ -61,26 +65,22 @@ class CalendarActivity : AppCompatActivity() {
             Toast.makeText(this, "Fecha seleccionada: $formattedDate", Toast.LENGTH_SHORT).show()
         }
 
-        // Set event button click listener
+        // Add event button listener
         addEventButton.setOnClickListener {
             showAddEventDialog()
         }
 
-        // Load events for the next 30 days
+        // Load upcoming events
         loadUpcomingEvents()
     }
 
     private fun showAddEventDialog() {
-        // Inflate the layout for the dialog
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_event, null)
-
-        // Find the TextView elements in the dialog layout
         val nameEditText = dialogView.findViewById<EditText>(R.id.eventNameEditText)
         val dateTextView = dialogView.findViewById<TextView>(R.id.eventDateTextView)
         val timeTextView = dialogView.findViewById<TextView>(R.id.eventTimeTextView)
         val descriptionEditText = dialogView.findViewById<EditText>(R.id.eventDescriptionEditText)
 
-        // Set listeners for date and time selection
         dateTextView.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -108,23 +108,18 @@ class CalendarActivity : AppCompatActivity() {
             timePickerDialog.show()
         }
 
-        // Create the dialog
         val dialog = AlertDialog.Builder(this)
             .setTitle("Añadir Evento")
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
-                // Get the input values
                 val name = nameEditText.text.toString()
                 val date = dateTextView.text.toString()
                 val time = timeTextView.text.toString()
                 val description = descriptionEditText.text.toString()
 
-                // Validate inputs
                 if (name.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty() && description.isNotEmpty()) {
-                    val newEvent = Event(name, date, time, description)
-                    eventsList.add(newEvent)
-                    eventsAdapter.notifyDataSetChanged()
-                    Toast.makeText(this, "Evento añadido", Toast.LENGTH_SHORT).show()
+                    val event = Event(name, date, time, description)
+                    saveEventToFirebase(event)
                 } else {
                     Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
                 }
@@ -132,21 +127,60 @@ class CalendarActivity : AppCompatActivity() {
             .setNegativeButton("Cancelar", null)
             .create()
 
-        // Show the dialog
         dialog.show()
     }
 
+    private fun saveEventToFirebase(event: Event) {
+        val userEmail = auth.currentUser?.email
+
+        if (userEmail != null) {
+            val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
+
+            eventsRef.add(event)
+                .addOnSuccessListener {
+                    eventsList.add(event)
+                    eventsAdapter.notifyDataSetChanged()
+                    Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "No se pudo obtener el usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun loadUpcomingEvents() {
-        // Here you can filter events that occur within the next 30 days
-        val calendar = Calendar.getInstance()
-        val today = calendar.time
-        calendar.add(Calendar.DAY_OF_YEAR, 30)
-        val thirtyDaysLater = calendar.time
+        val userEmail = auth.currentUser?.email
 
-        // You can filter events based on the dates (using SimpleDateFormat and comparing dates)
-        // Add logic here to filter events in `eventsList` that are within the 30-day range
+        if (userEmail != null) {
+            val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
 
-        // Refresh the RecyclerView
-        eventsAdapter.notifyDataSetChanged()
+            eventsRef.get()
+                .addOnSuccessListener { documents ->
+                    eventsList.clear()
+
+                    val calendar = Calendar.getInstance()
+                    val today = calendar.time
+                    calendar.add(Calendar.DAY_OF_YEAR, 30)
+                    val thirtyDaysLater = calendar.time
+
+                    for (document in documents) {
+                        val event = document.toObject(Event::class.java)
+
+                        val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
+                        if (eventDate != null && eventDate in today..thirtyDaysLater) {
+                            eventsList.add(event)
+                        }
+                    }
+
+                    eventsAdapter.notifyDataSetChanged()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
+        }
     }
 }
