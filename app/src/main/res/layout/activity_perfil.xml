@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
 
-    tools:context=".PerfilPaciente">
+
+
+tools:context=".PerfilPaciente">
 
 
     <TextView

@@ -21,13 +21,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarActivity : AppCompatActivity() {
+class CalendarActivity : BaseActivity() {
 
     private lateinit var calendarView: CalendarView
     private lateinit var addEventButton: Button
     private lateinit var eventsRecyclerView: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var btnBack: Button
+    private lateinit var textView4: TextView  // Añadido para referenciar el TextView4
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -39,11 +40,14 @@ class CalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
         // Initialize views
         btnBack = findViewById(R.id.btnBack)
         calendarView = findViewById(R.id.calendarView)
         addEventButton = findViewById(R.id.addEventButton)
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
+        textView4 = findViewById(R.id.textView4)  // Inicializa el TextView4
 
         // Setup RecyclerView
         eventsAdapter = EventsAdapter(eventsList)
@@ -136,11 +140,14 @@ class CalendarActivity : AppCompatActivity() {
         if (userEmail != null) {
             val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
 
+            // Guardar el evento en Firestore sin comprobar si está dentro de los próximos 30 días
             eventsRef.add(event)
                 .addOnSuccessListener {
-                    eventsList.add(event)
-                    eventsAdapter.notifyDataSetChanged()
+                    // Solo mostrar el Toast, pero no añadir el evento a la lista directamente
                     Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
+
+                    // Cambiar visibilidad de textView4 después de añadir un evento
+                    updateTextViewVisibility()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -150,6 +157,7 @@ class CalendarActivity : AppCompatActivity() {
         }
     }
 
+
     private fun loadUpcomingEvents() {
         val userEmail = auth.currentUser?.email
 
@@ -158,7 +166,7 @@ class CalendarActivity : AppCompatActivity() {
 
             eventsRef.get()
                 .addOnSuccessListener { documents ->
-                    eventsList.clear()
+                    eventsList.clear() // Limpiar la lista antes de agregar nuevos eventos
 
                     val calendar = Calendar.getInstance()
                     val today = calendar.time
@@ -170,17 +178,29 @@ class CalendarActivity : AppCompatActivity() {
 
                         val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
                         if (eventDate != null && eventDate in today..thirtyDaysLater) {
+                            // Solo agregar el evento a la lista si está dentro de los próximos 30 días
                             eventsList.add(event)
                         }
                     }
 
                     eventsAdapter.notifyDataSetChanged()
+                    updateTextViewVisibility() // Actualizar la visibilidad de TextView4 según los eventos
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    // Nueva función para actualizar la visibilidad de textView4
+    private fun updateTextViewVisibility() {
+        if (eventsList.isNotEmpty()) {
+            textView4.visibility = TextView.VISIBLE
+        } else {
+            textView4.visibility = TextView.GONE
         }
     }
 }
