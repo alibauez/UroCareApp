@@ -33,10 +33,10 @@
         android:layout_marginTop="4dp" />
 
     <TextView
-        android:id="@+id/tvAge"
+        android:id="@+id/tvDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Edad"
+        android:text="Fecha de Nacimiento"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/tvGender"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +53,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAge"
+        app:layout_constraintTop_toBottomOf="@id/tvDate"
         android:layout_marginTop="16dp" />
 
     <LinearLayout
@@ -134,17 +134,24 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
+            <!-- Alergias -->
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Alergias" />
-
-            <EditText
-                android:id="@+id/etAllergies"
+                android:id="@+id/tvAllergiesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Ingrese alergias" />
+                android:text="Alergias"
+                 />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewAllergies"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="200dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+
         </LinearLayout>
 
     </LinearLayout>
