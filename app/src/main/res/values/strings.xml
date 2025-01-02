@@ -87,6 +87,7 @@
     </string>
 
     <string name="acceptTerms">Acepto los términos y condiciones</string>
+    <string name="text_event">Eventos de los próximos 30 días:</string>
 
 
     <string-array name="text_list">
