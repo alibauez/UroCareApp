@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".PantallaInfo">
+    tools:context=".CuidadosPostcirujia">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="Preparación preoperatoria"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_preparacion" />
+            android:src="@drawable/ic_postcirujia" />
 
         <!-- Título -->
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Preparación para procedimientos preoperatorios"
+            android:text="Preparación para procedimientos postoperatorios"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="Beber 8 vasos de agua al día durante 2 semanas antes del procedimiento."
+            android:text="Hidrátate constantemente: Bebe al menos 2-3 litros de agua al día para ayudar a eliminar residuos y prevenir la formación de nuevas piedras."
             android:textColor="#666666"
             android:textSize="14sp" />
 
@@ -63,22 +63,19 @@
                 android:id="@+id/indicator1"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:layout_margin="4dp"
-                 />
+                android:layout_margin="4dp" />
 
             <View
                 android:id="@+id/indicator2"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:layout_margin="4dp"
-                />
+                android:layout_margin="4dp" />
 
             <View
                 android:id="@+id/indicator3"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:layout_margin="4dp"
-                />
+                android:layout_margin="4dp" />
         </LinearLayout>
 
         <!-- Botón Siguiente -->
@@ -94,6 +91,6 @@
             app:cornerRadius="15dp" />
     </LinearLayout>
 
-    <include layout="@layout/toolbar_paciente"/>
+    <include layout="@layout/toolbar_paciente" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
