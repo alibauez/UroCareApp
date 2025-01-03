@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
@@ -150,16 +149,23 @@ class CalendarActivity : AppCompatActivity() {
         if (userEmail != null) {
             val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
 
-            // Guardar el evento en Firestore sin comprobar si está dentro de los próximos 30 días
             eventsRef.add(event)
                 .addOnSuccessListener { documentReference ->
-                    // Obtener el ID del documento guardado y asignarlo al evento
                     event.id = documentReference.id
-                    eventsList.add(event)
-                    eventsAdapter.notifyItemInserted(eventsList.size - 1)
+
+                    // Validar si el evento está dentro de los próximos 30 días
+                    val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
+                    val calendar = Calendar.getInstance()
+                    val today = calendar.time
+                    calendar.add(Calendar.DAY_OF_YEAR, 30)
+                    val thirtyDaysLater = calendar.time
+
+                    if (eventDate != null && eventDate in today..thirtyDaysLater) {
+                        eventsList.add(event)
+                        eventsAdapter.notifyItemInserted(eventsList.size - 1)
+                    }
 
                     Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
-
                     updateTextViewVisibility()
                 }
                 .addOnFailureListener { e ->
