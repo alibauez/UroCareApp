@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".CuidadosPostcirujia">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Imagen superior -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="411dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Preparación preoperatoria"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_postcirujia" />
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Preparación para procedimientos postoperatorios"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Texto descriptivo (dinámico) -->
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="Hidrátate constantemente: Bebe al menos 2-3 litros de agua al día para ayudar a eliminar residuos y prevenir la formación de nuevas piedras."
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <!-- Indicadores de progreso (puntos) -->
+        <LinearLayout
+            android:layout_marginTop="32dp"
+            android:id="@+id/indicatorLayout"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/indicator1"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_margin="4dp" />
+
+            <View
+                android:id="@+id/indicator2"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_margin="4dp" />
+
+            <View
+                android:id="@+id/indicator3"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_margin="4dp" />
+        </LinearLayout>
+
+        <!-- Botón Siguiente -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonNext"
+            android:layout_width="351dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:text="Siguiente"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            app:cornerRadius="15dp" />
+    </LinearLayout>
+
+    <include layout="@layout/toolbar_paciente" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

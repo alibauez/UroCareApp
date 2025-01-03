@@ -44,6 +44,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".CuidadosPostcirujia"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".PerfilPaciente"
             android:exported="true">
         </activity>
