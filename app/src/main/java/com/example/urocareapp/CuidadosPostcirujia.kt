@@ -17,6 +17,8 @@ class CuidadosPostcirujia: BaseActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_cuidadospostcirujia)
+        setSupportActionBar(findViewById(R.id.toolbar))
+
 
         // Lista de textos que rotarán en el TextView
         textList = resources.getStringArray(R.array.text_list2).toList()

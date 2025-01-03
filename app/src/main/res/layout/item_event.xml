@@ -31,4 +31,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Event Description"/>
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"
+        android:textColor="@android:color/holo_red_dark" />
+
 </LinearLayout>

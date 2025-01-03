@@ -11,11 +11,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 abstract class BaseActivity : AppCompatActivity() {
-
-
-
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_toolbar, menu)
@@ -38,7 +33,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 startActivity(Intent(this, PerfilPaciente::class.java))
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -31,7 +31,7 @@ class HomePaciente : BaseActivity() {
         }
 
         btnCuidados.setOnClickListener {
-            startActivity(intentCalendar)
+            startActivity(intentCuidados)
         }
 
         btnCalendar.setOnClickListener {

@@ -7,7 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.R
 
-class EventsAdapter(private val events: List<Event>) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
+class EventsAdapter(
+    private val events: MutableList<Event>,
+    private val onDeleteClick: (Event, Int) -> Unit // Aquí agregamos el clickListener
+) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
 
     // ViewHolder: Representa cada elemento visible en el RecyclerView
     inner class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -15,6 +18,18 @@ class EventsAdapter(private val events: List<Event>) : RecyclerView.Adapter<Even
         val dateTextView: TextView = itemView.findViewById(R.id.eventDate)
         val timeTextView: TextView = itemView.findViewById(R.id.eventTime)
         val descriptionTextView: TextView = itemView.findViewById(R.id.eventDescription)
+        val deleteButton: TextView = itemView.findViewById(R.id.deleteButton) // Agregar un botón para eliminar
+
+        init {
+            // Asignar el listener para el botón de eliminar
+            deleteButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val event = events[position]
+                    onDeleteClick(event, position) // Llamar a la función de eliminar cuando se haga clic
+                }
+            }
+        }
     }
 
     // Método que infla el layout de cada elemento de la lista
