@@ -1,17 +1,12 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,73 +24,68 @@ class PerfilPaciente : BaseActivity() {
         setContentView(R.layout.activity_perfil)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
         val userNameTextView = findViewById<TextView>(R.id.tvName)
-
         val userGenderTextView = findViewById<TextView>(R.id.tvGender)
-
         val bloodGroupSpinner = findViewById<Spinner>(R.id.spinnerBloodGroup)
+        val etHeight = findViewById<EditText>(R.id.etHeight)
+        val etWeight = findViewById<EditText>(R.id.etWeight)
+        val birthDateTextView = findViewById<TextView>(R.id.tvDate)
+        val btnSave = findViewById<Button>(R.id.btnSave)
+        val btnChangePassword = findViewById<Button>(R.id.btnChangePassword) // Botón para cambiar contraseña
+
         val db = Firebase.firestore
         val user1 = Firebase.auth.currentUser
         val userId = user1?.uid
-
-        val etHeight = findViewById<EditText>(R.id.etHeight)
-        val etWeight = findViewById<EditText>(R.id.etWeight)
-
         val email = Firebase.auth.currentUser?.email
-        val birthDateTextView = findViewById<TextView>(R.id.tvDate)
 
+        // Configurar botón para cambiar contraseña
+        btnChangePassword.setOnClickListener {
+            val intent = Intent(this, ChangePassActivity::class.java)
+            startActivity(intent)
+        }
 
-
+        // Cargar datos del usuario
         Firebase.firestore.collection("pacientes")
             .document(email.toString())
             .get()
             .addOnSuccessListener {
-                var nombreBD = it.get("nombre")
-                    .toString()//el campo debe ser igual al que se usa en la base de datos (mapOf)
-                userNameTextView.setText(if (nombreBD != "null") nombreBD else "")
-                var genderBd = it.get("genero").toString()
-                userGenderTextView.setText(if (genderBd != "null") genderBd else "")
-                var groupBD = it.get("grupoSanguineo").toString()
+                val nombreBD = it.get("nombre").toString()
+                userNameTextView.text = if (nombreBD != "null") nombreBD else ""
+                val genderBd = it.get("genero").toString()
+                userGenderTextView.text = if (genderBd != "null") genderBd else ""
+
+                val groupBD = it.get("grupoSanguineo").toString()
                 if (groupBD != "null") {
                     val bloodGroupOptions = resources.getStringArray(R.array.blood_group_options)
-                    val position = bloodGroupOptions.indexOf(groupBD) // Encuentra la posición del valor en las opciones
+                    val position = bloodGroupOptions.indexOf(groupBD)
                     if (position >= 0) {
-                        bloodGroupSpinner.setSelection(position) // Establece el valor inicial del Spinner
+                        bloodGroupSpinner.setSelection(position)
                     }
                 }
-                // Fecha de nacimiento
+
                 val birthDateTimestamp = it.getTimestamp("fechaNacimiento")
                 birthDateTimestamp?.let { timestamp ->
                     val birthDate = timestamp.toDate()
                     val dateFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
-                    val formattedDate = dateFormat.format(birthDate)
-
-                    birthDateTextView.text = formattedDate
+                    birthDateTextView.text = dateFormat.format(birthDate)
                 }
+
                 val allergiesList = it.get("alergias") as? List<String> ?: emptyList()
                 Log.d("alergias", allergiesList.toString())
                 setupRecyclerView(allergiesList)
             }
 
-
-
-
-        // Cargar las opciones del Spinner desde el recurso strings.xml
+        // Configurar Spinner de grupo sanguíneo
         val bloodGroupOptions = resources.getStringArray(R.array.blood_group_options)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroupOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bloodGroupSpinner.adapter = adapter
 
-
-
         bloodGroupSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedGroup = bloodGroupOptions[position]
-                // Guardar en Firebase o en tu base de datos
-
                 val profileUpdates = userProfileChangeRequest {
-                    displayName = selectedGroup // Solo como ejemplo, ajusta esto según tu estructura
+                    displayName = selectedGroup
                 }
                 user1?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -104,22 +94,17 @@ class PerfilPaciente : BaseActivity() {
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Acción cuando no se selecciona nada (opcional)
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
-        val btnSave = findViewById<Button>(R.id.btnSave)
+        // Guardar altura y peso
         btnSave.setOnClickListener {
             val updatedHeight = etHeight.text.toString()
             val updatedWeight = etWeight.text.toString()
 
-
             val userData = hashMapOf(
                 "height" to updatedHeight,
-                "weight" to updatedWeight,
-
+                "weight" to updatedWeight
             )
 
             userId?.let {
@@ -132,14 +117,8 @@ class PerfilPaciente : BaseActivity() {
                         Log.w("Firebase", "Error al guardar datos: ", e)
                         Toast.makeText(this, "Error al guardar datos", Toast.LENGTH_SHORT).show()
                     }
-
-
-
-
             }
         }
-
-
     }
 
     class AllergiesAdapter(private val allergies: List<String>) :
@@ -161,11 +140,10 @@ class PerfilPaciente : BaseActivity() {
 
         override fun getItemCount(): Int = allergies.size
     }
-    fun setupRecyclerView(allergies: List<String>) {
+
+    private fun setupRecyclerView(allergies: List<String>) {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewAllergies)
-        recyclerView.layoutManager = LinearLayoutManager(this) // Asegúrate de configurar el layout manager
+        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = AllergiesAdapter(allergies)
     }
-
-
 }

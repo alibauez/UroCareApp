@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarActivity : AppCompatActivity() {
+class CalendarActivity : BaseActivity() {
 
     private lateinit var calendarView: CalendarView
     private lateinit var addEventButton: Button
