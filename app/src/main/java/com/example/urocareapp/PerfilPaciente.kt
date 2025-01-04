@@ -1,5 +1,6 @@
 package com.example.urocareapp
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +40,8 @@ class PerfilPaciente : BaseActivity() {
         val db = Firebase.firestore
         val user1 = Firebase.auth.currentUser
         val userId = user1?.uid
+        val btnEdit = findViewById<Button>(R.id.btnEdit)
+        val allergies = mutableListOf<String>()
 
 
 
@@ -80,6 +83,29 @@ class PerfilPaciente : BaseActivity() {
                 Log.d("alergias", allergiesList.toString())
                 setupRecyclerView(allergiesList)
             }
+
+        btnEdit.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.dialog_edit_allergies)
+
+            val recyclerView = dialog.findViewById<RecyclerView>(R.id.recyclerViewEditAllergies)
+            val btnCloseDialog = dialog.findViewById<Button>(R.id.btnCloseDialog)
+
+            val adapter = EditAllergiesAdapter(allergies) { position ->
+                allergies.removeAt(position)
+                adapter.notifyItemRemoved(position)
+            }
+
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+
+            btnCloseDialog.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+
 
 
 
@@ -171,6 +197,37 @@ class PerfilPaciente : BaseActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this) // Asegúrate de configurar el layout manager
         recyclerView.adapter = AllergiesAdapter(allergies)
     }
+
+    class EditAllergiesAdapter(
+        private val allergies: MutableList<String>,
+        private val onItemRemoveListener: (Int) -> Unit
+    ) : RecyclerView.Adapter<EditAllergiesAdapter.ViewHolder>() {
+
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val textViewAllergy: TextView = view.findViewById(R.id.tvAllergy)
+            val buttonRemove: Button = view.findViewById(R.id.btnRemove)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_allergy_edit, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val allergy = allergies[position]
+            holder.textViewAllergy.text = allergy
+
+            holder.buttonRemove.setOnClickListener {
+                onItemRemoveListener(position)
+            }
+        }
+
+        override fun getItemCount(): Int = allergies.size
+    }
+
+
+
 
 
 }
