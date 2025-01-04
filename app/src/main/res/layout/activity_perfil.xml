@@ -134,15 +134,32 @@
             android:text="Alergias"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnEditAllergies"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:backgroundTint="@android:color/black"
-            android:text="Editar"
-            android:textSize="10sp"
-            android:layout_gravity="start" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start|center_vertical"
+            android:layout_marginTop="4dp">
+
+            <Button
+                android:id="@+id/btnEditAllergies"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@android:color/black"
+                android:text="Editar"
+                android:textSize="10sp"
+                android:layout_marginEnd="8dp" /> <!-- Adds space between the buttons -->
+
+            <Button
+                android:id="@+id/btnAñadirAllergies"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@android:color/black"
+                android:text="Añadir"
+                android:textColor="@android:color/white"
+                android:textSize="10sp" />
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAllergies"
