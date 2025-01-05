@@ -1,28 +1,124 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import android.widget.Toast
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class RegistroPaciente : BaseActivity(){
+class RegistroPaciente : BaseActivity() {
+    private val db = FirebaseFirestore.getInstance()
+    private val email = Firebase.auth.currentUser?.email
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        // Llenar Spinner de Género
+        val nameEditText: EditText = findViewById(R.id.etName)
+        val surnameEditText: EditText = findViewById(R.id.etSurname)
+        val dobEditText: EditText = findViewById(R.id.etDob)
         val genderSpinner: Spinner = findViewById(R.id.spinnerGender)
+        val bloodGroupSpinner: Spinner = findViewById(R.id.spinnerBloodGroup)
+        val continueButton: Button = findViewById(R.id.btnContinue)
+
+        // Configurar Spinner de Género
         val genderOptions = listOf("Masculino", "Femenino", "Otro")
         val genderAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderSpinner.adapter = genderAdapter
 
-        // Llenar Spinner de Grupo Sanguíneo
-        val bloodGroupSpinner: Spinner = findViewById(R.id.spinnerBloodGroup)
+        // Configurar Spinner de Grupo Sanguíneo
         val bloodGroupOptions = listOf("0-", "0+", "A-", "A+", "B-", "B+", "AB-", "AB+")
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroupOptions)
         bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bloodGroupSpinner.adapter = bloodGroupAdapter
+
+            db.collection("pacientes").document(email.toString()).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        nameEditText.setText(document.getString("nombre"))
+                        surnameEditText.setText(document.getString("apellidos"))
+                            // Convertir Timestamp a String
+                            val dobTimestamp = document.getTimestamp("fechaNacimiento")
+                            if (dobTimestamp != null) {
+                                val date = dobTimestamp.toDate()
+                                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                                dobEditText.setText(dateFormat.format(date))
+                            }
+
+                            val gender = document.getString("genero")
+                            val bloodGroup = document.getString("grupoSanguineo")
+
+                            if (gender != null) {
+                                val genderIndex = genderOptions.indexOf(gender)
+                                if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
+                            }
+
+                            if (bloodGroup != null) {
+                                val bloodGroupIndex = bloodGroupOptions.indexOf(bloodGroup)
+                                if (bloodGroupIndex >= 0) bloodGroupSpinner.setSelection(bloodGroupIndex)
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+
+
+        continueButton.setOnClickListener {
+            val name = nameEditText.text.toString().trim()
+            val surname = surnameEditText.text.toString().trim()
+            val dob = dobEditText.text.toString().trim()
+            val gender = genderSpinner.selectedItem.toString()
+            val bloodGroup = bloodGroupSpinner.selectedItem.toString()
+
+            if (name.isEmpty() || surname.isEmpty() || dob.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos obligatorios.", Toast.LENGTH_SHORT).show()
+            } else {
+                try {
+                    // Parsear la fecha de nacimiento a un objeto Date
+                    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val dobDate = dateFormat.parse(dob)
+
+                    // Convertir Date a Timestamp
+                    val dobTimestamp = dobDate?.let { Timestamp(it) }
+
+                    val userData = mutableMapOf<String, Any?>(
+                        "nombre" to name,
+                        "apellidos" to surname,
+                        "fechaNacimiento" to dobTimestamp,
+                        "genero" to gender,
+                        "grupoSanguineo" to bloodGroup
+                    )
+
+                    // Actualizar los datos en Firebase
+                    db.collection("pacientes").document(email.toString())
+                        .update(userData)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Datos guardados exitosamente.", Toast.LENGTH_SHORT).show()
+
+                            // Redirigir a la pantalla de perfil
+                            val intent = Intent(this, PerfilPaciente::class.java)
+                            startActivity(intent)
+
+                            // Finaliza la actividad actual para que no quede en el stack
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error al guardar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Formato de fecha inválido. Usa dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
 
     }
 }

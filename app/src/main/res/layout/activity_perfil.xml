@@ -203,13 +203,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Credenciales de acceso -->
+
         <Button
-            android:id="@+id/btnAccessCredentials"
+            android:id="@+id/btnPersonalData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
-            android:text="Credenciales de acceso"
+            android:text="Datos personales"
             android:textColor="@android:color/white" />
 
         <!-- Cambiar contraseña -->

@@ -1,6 +1,7 @@
 package com.example.urocareapp
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -186,7 +187,12 @@ class PerfilPaciente : BaseActivity() {
 
 
 
-
+        // Botón para navegar a la pantalla de registro
+        val personalDataButton: Button = findViewById(R.id.btnPersonalData)
+        personalDataButton.setOnClickListener {
+            val intent = Intent(this, RegistroPaciente::class.java)
+            startActivity(intent)
+        }
 
 
 
