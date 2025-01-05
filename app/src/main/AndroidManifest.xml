@@ -56,7 +56,7 @@
             android:name=".RegistroPaciente"
             android:exported="true">
         </activity>
-            android:exported="true"></activity>
+        
     </application>
 
 </manifest>

@@ -38,37 +38,35 @@ class RegistroPaciente : BaseActivity() {
         val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroupOptions)
         bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bloodGroupSpinner.adapter = bloodGroupAdapter
-
-            db.collection("pacientes").document(email.toString()).get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        nameEditText.setText(document.getString("nombre"))
-                        surnameEditText.setText(document.getString("apellidos"))
-                            // Convertir Timestamp a String
-                            val dobTimestamp = document.getTimestamp("fechaNacimiento")
-                            if (dobTimestamp != null) {
-                                val date = dobTimestamp.toDate()
-                                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                                dobEditText.setText(dateFormat.format(date))
-                            }
-
-                            val gender = document.getString("genero")
-                            val bloodGroup = document.getString("grupoSanguineo")
-
-                            if (gender != null) {
-                                val genderIndex = genderOptions.indexOf(gender)
-                                if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
-                            }
-
-                            if (bloodGroup != null) {
-                                val bloodGroupIndex = bloodGroupOptions.indexOf(bloodGroup)
-                                if (bloodGroupIndex >= 0) bloodGroupSpinner.setSelection(bloodGroupIndex)
-                            }
-                        }
+        db.collection("pacientes").document(email.toString()).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    nameEditText.setText(document.getString("nombre"))
+                    surnameEditText.setText(document.getString("apellidos"))
+                    // Convertir Timestamp a String
+                    val dobTimestamp = document.getTimestamp("fechaNacimiento")
+                    if (dobTimestamp != null) {
+                        val date = dobTimestamp.toDate()
+                        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                        dobEditText.setText(dateFormat.format(date))
                     }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+                    val gender = document.getString("genero")
+                    val bloodGroup = document.getString("grupoSanguineo")
+
+                    if (gender != null) {
+                        val genderIndex = genderOptions.indexOf(gender)
+                        if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
                     }
+
+                    if (bloodGroup != null) {
+                        val bloodGroupIndex = bloodGroupOptions.indexOf(bloodGroup)
+                        if (bloodGroupIndex >= 0) bloodGroupSpinner.setSelection(bloodGroupIndex)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
 
 
         continueButton.setOnClickListener {
