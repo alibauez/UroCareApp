@@ -87,6 +87,7 @@
     </string>
 
     <string name="acceptTerms">Acepto los términos y condiciones</string>
+    <string name="text_event">Eventos de los próximos 30 días:</string>
 
 
     <string-array name="text_list">
@@ -94,6 +95,13 @@
         <item>Evitar el consumo de alcohol y tabaco antes de la cirugía.</item>
         <item>Dormir al menos 8 horas la noche anterior al procedimiento.</item>
     </string-array>
+
+    <string-array name="text_list2">
+        <item>Hidrátate constantemente: Bebe al menos 2-3 litros de agua al día para ayudar a eliminar residuos y prevenir la formación de nuevas piedras.</item>
+        <item>Sigue la dieta recomendada: Evita alimentos ricos en oxalatos, sal o proteínas si tu médico lo sugiere, y prioriza frutas y vegetales.</item>
+        <item>Toma los medicamentos recetados: Cumple estrictamente con los analgésicos o antibióticos indicados para aliviar el dolor y prevenir infecciones.</item>
+    </string-array>
+
     <string-array name="blood_group_options">
         <item>0-</item>
         <item>0+</item>

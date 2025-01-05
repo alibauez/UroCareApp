@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.modelo.Event
@@ -21,13 +22,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarActivity : AppCompatActivity() {
+class CalendarActivity : BaseActivity() {
 
     private lateinit var calendarView: CalendarView
     private lateinit var addEventButton: Button
     private lateinit var eventsRecyclerView: RecyclerView
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var btnBack: Button
+    private lateinit var textView4: TextView
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -38,15 +40,19 @@ class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // Initialize views
         btnBack = findViewById(R.id.btnBack)
         calendarView = findViewById(R.id.calendarView)
         addEventButton = findViewById(R.id.addEventButton)
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
+        textView4 = findViewById(R.id.textView4)
 
-        // Setup RecyclerView
-        eventsAdapter = EventsAdapter(eventsList)
+        // Setup RecyclerView with clickListener for deletion
+        eventsAdapter = EventsAdapter(eventsList) { event, position ->
+            deleteEvent(event, position) // Delete event when clicked
+        }
         eventsRecyclerView.layoutManager = LinearLayoutManager(this)
         eventsRecyclerView.adapter = eventsAdapter
 
@@ -80,6 +86,7 @@ class CalendarActivity : AppCompatActivity() {
         val dateTextView = dialogView.findViewById<TextView>(R.id.eventDateTextView)
         val timeTextView = dialogView.findViewById<TextView>(R.id.eventTimeTextView)
         val descriptionEditText = dialogView.findViewById<EditText>(R.id.eventDescriptionEditText)
+        dateTextView.setTextColor(ContextCompat.getColor(this, R.color.primary)) // Cambia 'primary' al color deseado
 
         dateTextView.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -87,12 +94,14 @@ class CalendarActivity : AppCompatActivity() {
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+            val datePickerDialog = DatePickerDialog(this, R.style.CustomDatePickerTheme, { _, selectedYear, selectedMonth, selectedDay ->
                 val date = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 dateTextView.text = date
             }, year, month, day)
 
             datePickerDialog.show()
+            datePickerDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
+            datePickerDialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
 
         timeTextView.setOnClickListener {
@@ -100,12 +109,14 @@ class CalendarActivity : AppCompatActivity() {
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+            val timePickerDialog = TimePickerDialog(this, R.style.CustomTimePickerTheme, { _, selectedHour, selectedMinute ->
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 timeTextView.text = time
             }, hour, minute, false)
 
             timePickerDialog.show()
+            timePickerDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
+            timePickerDialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
 
         val dialog = AlertDialog.Builder(this)
@@ -128,6 +139,8 @@ class CalendarActivity : AppCompatActivity() {
             .create()
 
         dialog.show()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.secondary)) // Color del botón positivo
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.secondary)) // Color del botón negativo
     }
 
     private fun saveEventToFirebase(event: Event) {
@@ -137,10 +150,23 @@ class CalendarActivity : AppCompatActivity() {
             val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
 
             eventsRef.add(event)
-                .addOnSuccessListener {
-                    eventsList.add(event)
-                    eventsAdapter.notifyDataSetChanged()
+                .addOnSuccessListener { documentReference ->
+                    event.id = documentReference.id
+
+                    // Validar si el evento está dentro de los próximos 30 días
+                    val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
+                    val calendar = Calendar.getInstance()
+                    val today = calendar.time
+                    calendar.add(Calendar.DAY_OF_YEAR, 30)
+                    val thirtyDaysLater = calendar.time
+
+                    if (eventDate != null && eventDate in today..thirtyDaysLater) {
+                        eventsList.add(event)
+                        eventsAdapter.notifyItemInserted(eventsList.size - 1)
+                    }
+
                     Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
+                    updateTextViewVisibility()
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -158,7 +184,7 @@ class CalendarActivity : AppCompatActivity() {
 
             eventsRef.get()
                 .addOnSuccessListener { documents ->
-                    eventsList.clear()
+                    eventsList.clear() // Limpiar la lista antes de agregar nuevos eventos
 
                     val calendar = Calendar.getInstance()
                     val today = calendar.time
@@ -168,19 +194,56 @@ class CalendarActivity : AppCompatActivity() {
                     for (document in documents) {
                         val event = document.toObject(Event::class.java)
 
+                        // Asignar el ID del documento a la propiedad id del evento
+                        event.id = document.id
+
                         val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
                         if (eventDate != null && eventDate in today..thirtyDaysLater) {
+                            // Solo agregar el evento a la lista si está dentro de los próximos 30 días
                             eventsList.add(event)
                         }
                     }
 
                     eventsAdapter.notifyDataSetChanged()
+                    updateTextViewVisibility() // Actualizar la visibilidad de TextView4 según los eventos
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {
             Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun deleteEvent(event: Event, position: Int) {
+        val userEmail = auth.currentUser?.email
+
+        if (userEmail != null) {
+            val eventRef = db.collection("pacientes").document(userEmail).collection("eventos").document(event.id)
+
+            eventRef.delete()
+                .addOnSuccessListener {
+                    // Eliminar el evento de la lista local
+                    eventsList.removeAt(position)
+                    eventsAdapter.notifyItemRemoved(position)
+                    Toast.makeText(this, "Evento eliminado correctamente", Toast.LENGTH_SHORT).show()
+
+                    updateTextViewVisibility() // Actualizar la visibilidad de TextView4 según los eventos
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error al eliminar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Nueva función para actualizar la visibilidad de textView4
+    private fun updateTextViewVisibility() {
+        if (eventsList.isNotEmpty()) {
+            textView4.visibility = TextView.VISIBLE
+        } else {
+            textView4.visibility = TextView.GONE
         }
     }
 }

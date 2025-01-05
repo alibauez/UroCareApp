@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <!-- Toolbar en la parte superior -->
+    <include layout="@layout/toolbar_paciente"/>
+
+    <TextView
+        android:id="@+id/tvChangePasswordTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="23dp"
+
+        android:text="Cambio de contraseña"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etCurrentPassword"
+        android:layout_width="match_parent"
+        android:hint="Contraseña actual"
+        android:inputType="textPassword"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_rounded"
+        android:ems="10"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+
+        android:paddingStart="32dp"
+        android:layout_height="56dp" />
+
+    <EditText
+        android:id="@+id/etNewPassword"
+        android:layout_width="match_parent"
+        android:hint="Nueva contraseña"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:inputType="textPassword"
+
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_rounded"
+        android:ems="10"
+        android:paddingStart="32dp"
+        android:layout_height="56dp" />
+
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:hint="Confirma nueva contraseña"
+        android:inputType="textPassword"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edittext_rounded"
+        android:ems="10"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:paddingStart="32dp"
+        android:layout_height="56dp" />
+
+    <Button
+        android:id="@+id/btnUpdatePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar contraseña"
+        android:backgroundTint="@color/primary"
+        android:textStyle="bold"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        app:cornerRadius="15dp"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/btnSalir2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:text="Volver"
+        android:textColor="@color/black"
+        android:layout_marginStart="150dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
