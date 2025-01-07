@@ -3,16 +3,14 @@ package com.example.urocareapp.medico
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
-import com.example.urocareapp.BaseActivity
 import com.example.urocareapp.CalendarActivity
 import com.example.urocareapp.R
+import com.example.urocareapp.modelo.AgregarConsejoDialogFragment
 
 class HomeMedico : BaseActivityMedico() {
 
-    private lateinit var btnPantallaInfo: Button
-    private lateinit var btnCuidados: Button
-    private lateinit var btnConsejos: Button
+
+    private lateinit var addAdvice: Button
     private lateinit var btnHabitos: Button
     private lateinit var btnCalendar: Button
 
@@ -23,23 +21,23 @@ class HomeMedico : BaseActivityMedico() {
 
 
         // Asociar los botones con las vistas del XML
-        btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
-        btnCuidados = findViewById(R.id.btnCuidados)
-        btnConsejos = findViewById(R.id.btnConsejos)
+        addAdvice = findViewById(R.id.addAdvice)
         btnHabitos = findViewById(R.id.btnHabitos)
         btnCalendar = findViewById(R.id.btnCalendar)
 
         // Configurar listeners para los botones
         setupListeners()
+
+        addAdvice.setOnClickListener {
+            // Mostrar el DialogFragment para agregar consejo
+            val dialog = AgregarConsejoDialogFragment()
+            dialog.show(supportFragmentManager, "AgregarConsejoDialog")
+        }
+
     }
 
     private fun setupListeners() {
-        // Abrir Consejos Alimentarios
-        btnConsejos.setOnClickListener {
-            // Crear un Intent para abrir la pantalla ConsejosAlimentariosMedico
-            val intent = Intent(this, ConsejosAlimentariosMedico::class.java)
-            startActivity(intent)
-        }
+
 
         // Abrir Control de Hábitos
         btnHabitos.setOnClickListener {

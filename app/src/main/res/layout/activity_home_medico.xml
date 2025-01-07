@@ -23,54 +23,13 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPantallaInfo"
+        android:id="@+id/addAdvice"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/primary_claro"
-        android:text="Preparación para Operaciones"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:cornerRadius="15dp"
-        app:icon="@drawable/ic_med"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="32dp"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCuidados"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/primary_claro"
-        android:text="Cuidados Postquirúrgicos"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:cornerRadius="15dp"
-        app:icon="@drawable/ic_post"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="32dp"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnPantallaInfo" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConsejos"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/primary_claro"
-        android:text="Consejos Alimentarios"
+        android:text="Añadir Consejos Alimentarios"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:cornerRadius="15dp"
@@ -81,7 +40,7 @@
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCuidados" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnHabitos"
@@ -101,7 +60,7 @@
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnConsejos" />
+        app:layout_constraintTop_toBottomOf="@id/addAdvice" />
 
     <Button
         android:id="@+id/btnCalendar"

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:padding="16dp">
+
+<!-- Spinner para seleccionar paciente -->
+<Spinner
+    android:id="@+id/pacienteSpinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+<!-- EditText para el nombre del consejo -->
+<EditText
+    android:id="@+id/nombreEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Nombre del consejo" />
+
+<!-- EditText para la descripción del consejo -->
+<EditText
+    android:id="@+id/descripcionEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Descripción del consejo" />
+
+<!-- Botón para guardar el consejo -->
+<Button
+    android:id="@+id/guardarButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Guardar Consejo" />
+</LinearLayout>
