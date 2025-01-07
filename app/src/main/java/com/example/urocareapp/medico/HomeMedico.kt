@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.urocareapp.BaseActivity
+import com.example.urocareapp.CalendarActivity
 import com.example.urocareapp.R
 
 class HomeMedico : BaseActivity() {
@@ -33,18 +34,6 @@ class HomeMedico : BaseActivity() {
     }
 
     private fun setupListeners() {
-        // Abrir Pantalla de Información
-        btnPantallaInfo.setOnClickListener {
-            // val intent = Intent(this, PantallaInfoActivity::class.java)
-            // startActivity(intent)
-        }
-
-        // Abrir Cuidados Postquirúrgicos
-        btnCuidados.setOnClickListener {
-            // val intent = Intent(this, CuidadosPostActivity::class.java)
-            // startActivity(intent)
-        }
-
         // Abrir Consejos Alimentarios
         btnConsejos.setOnClickListener {
             // Crear un Intent para abrir la pantalla ConsejosAlimentariosMedico
@@ -60,8 +49,8 @@ class HomeMedico : BaseActivity() {
 
         // Abrir Calendario Médico
         btnCalendar.setOnClickListener {
-            // val intent = Intent(this, CalendarActivity::class.java)
-            // startActivity(intent)
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
         }
     }
 }

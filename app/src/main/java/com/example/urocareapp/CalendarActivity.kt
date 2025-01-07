@@ -11,13 +11,12 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.modelo.Event
 import com.example.urocareapp.modelo.EventsAdapter
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,7 +33,6 @@ class CalendarActivity : BaseActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    // List to store events (local cache)
     private val eventsList = mutableListOf<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +47,14 @@ class CalendarActivity : BaseActivity() {
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
         textView4 = findViewById(R.id.textView4)
 
-        // Setup RecyclerView with clickListener for deletion
+        // Setup RecyclerView
         eventsAdapter = EventsAdapter(eventsList) { event, position ->
-            deleteEvent(event, position) // Delete event when clicked
+            deleteEvent(event, position)
         }
         eventsRecyclerView.layoutManager = LinearLayoutManager(this)
         eventsRecyclerView.adapter = eventsAdapter
 
-        // Back button click listener
+        // Back button listener
         btnBack.setOnClickListener {
             val intentBack = Intent(this, HomePaciente::class.java)
             startActivity(intentBack)
@@ -76,7 +74,7 @@ class CalendarActivity : BaseActivity() {
             showAddEventDialog()
         }
 
-        // Load upcoming events
+        // Load initial events
         loadUpcomingEvents()
     }
 
@@ -86,7 +84,6 @@ class CalendarActivity : BaseActivity() {
         val dateTextView = dialogView.findViewById<TextView>(R.id.eventDateTextView)
         val timeTextView = dialogView.findViewById<TextView>(R.id.eventTimeTextView)
         val descriptionEditText = dialogView.findViewById<EditText>(R.id.eventDescriptionEditText)
-        dateTextView.setTextColor(ContextCompat.getColor(this, R.color.primary)) // Cambia 'primary' al color deseado
 
         dateTextView.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -94,14 +91,12 @@ class CalendarActivity : BaseActivity() {
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(this, R.style.CustomDatePickerTheme, { _, selectedYear, selectedMonth, selectedDay ->
+            val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
                 val date = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 dateTextView.text = date
             }, year, month, day)
 
             datePickerDialog.show()
-            datePickerDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
-            datePickerDialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
 
         timeTextView.setOnClickListener {
@@ -109,17 +104,15 @@ class CalendarActivity : BaseActivity() {
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            val timePickerDialog = TimePickerDialog(this, R.style.CustomTimePickerTheme, { _, selectedHour, selectedMinute ->
+            val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 timeTextView.text = time
             }, hour, minute, false)
 
             timePickerDialog.show()
-            timePickerDialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
-            timePickerDialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
 
-        val dialog = AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
             .setTitle("Añadir Evento")
             .setView(dialogView)
             .setPositiveButton("Guardar") { _, _ ->
@@ -136,114 +129,127 @@ class CalendarActivity : BaseActivity() {
                 }
             }
             .setNegativeButton("Cancelar", null)
-            .create()
-
-        dialog.show()
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(ContextCompat.getColor(this, R.color.secondary)) // Color del botón positivo
-        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(ContextCompat.getColor(this, R.color.secondary)) // Color del botón negativo
+            .show()
     }
 
     private fun saveEventToFirebase(event: Event) {
-        val userEmail = auth.currentUser?.email
+        val userEmail = auth.currentUser?.email ?: return
+        db.collection("medicos").document(userEmail).get()
+            .addOnSuccessListener { document ->
+                val collection = if (document.exists()) "medicos" else "pacientes"
+                val eventsRef = db.collection(collection).document(userEmail).collection("eventos")
+                saveEventInCollection(eventsRef, event)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al determinar colección", Toast.LENGTH_SHORT).show()
+            }
+    }
 
-        if (userEmail != null) {
-            val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
-
-            eventsRef.add(event)
-                .addOnSuccessListener { documentReference ->
-                    event.id = documentReference.id
-
-                    // Validar si el evento está dentro de los próximos 30 días
-                    val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
-                    val calendar = Calendar.getInstance()
-                    val today = calendar.time
-                    calendar.add(Calendar.DAY_OF_YEAR, 30)
-                    val thirtyDaysLater = calendar.time
-
-                    if (eventDate != null && eventDate in today..thirtyDaysLater) {
-                        eventsList.add(event)
-                        eventsAdapter.notifyItemInserted(eventsList.size - 1)
-                    }
-
-                    Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
+    private fun saveEventInCollection(eventsRef: CollectionReference, event: Event) {
+        eventsRef.add(event)
+            .addOnSuccessListener { documentReference ->
+                event.id = documentReference.id
+                if (isWithinNext30Days(event.date)) { // Filtrar por los próximos 30 días
+                    eventsList.add(event)
+                    eventsAdapter.notifyItemInserted(eventsList.size - 1)
                     updateTextViewVisibility()
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "No se pudo obtener el usuario", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Evento guardado correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al guardar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    private fun isWithinNext30Days(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return try {
+            val eventDate = dateFormat.parse(dateString)
+            val currentDate = Calendar.getInstance().time
+            val futureDate = Calendar.getInstance().apply {
+                add(Calendar.DAY_OF_YEAR, 30)
+            }.time
+            eventDate != null && eventDate in currentDate..futureDate
+        } catch (e: Exception) {
+            false // Si hay un error al analizar la fecha, considera que no está dentro del rango
         }
     }
+
 
     private fun loadUpcomingEvents() {
-        val userEmail = auth.currentUser?.email
+        val userEmail = auth.currentUser?.email ?: return
+        db.collection("medicos").document(userEmail).get()
+            .addOnSuccessListener { document ->
+                val collection = if (document.exists()) "medicos" else "pacientes"
+                val eventsRef = db.collection(collection).document(userEmail).collection("eventos")
+                loadEventsFromCollection(eventsRef)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Error al determinar colección", Toast.LENGTH_SHORT).show()
+            }
+    }
 
-        if (userEmail != null) {
-            val eventsRef = db.collection("pacientes").document(userEmail).collection("eventos")
+    private fun loadEventsFromCollection(eventsRef: CollectionReference) {
+        eventsRef.get()
+            .addOnSuccessListener { documents ->
+                eventsList.clear()
+                val currentDate = Calendar.getInstance().time
+                val futureDate = Calendar.getInstance().apply {
+                    add(Calendar.DAY_OF_YEAR, 30)
+                }.time
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-            eventsRef.get()
-                .addOnSuccessListener { documents ->
-                    eventsList.clear() // Limpiar la lista antes de agregar nuevos eventos
-
-                    val calendar = Calendar.getInstance()
-                    val today = calendar.time
-                    calendar.add(Calendar.DAY_OF_YEAR, 30)
-                    val thirtyDaysLater = calendar.time
-
-                    for (document in documents) {
-                        val event = document.toObject(Event::class.java)
-
-                        // Asignar el ID del documento a la propiedad id del evento
-                        event.id = document.id
-
-                        val eventDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(event.date)
-                        if (eventDate != null && eventDate in today..thirtyDaysLater) {
-                            // Solo agregar el evento a la lista si está dentro de los próximos 30 días
+                for (document in documents) {
+                    val event = document.toObject(Event::class.java)
+                    event.id = document.id
+                    try {
+                        // Parse the event date and compare it
+                        val eventDate = dateFormat.parse(event.date)
+                        if (eventDate != null && eventDate in currentDate..futureDate) {
                             eventsList.add(event)
                         }
+                    } catch (e: Exception) {
+                        Toast.makeText(this, "Error al procesar la fecha del evento", Toast.LENGTH_SHORT).show()
                     }
-
-                    eventsAdapter.notifyDataSetChanged()
-                    updateTextViewVisibility() // Actualizar la visibilidad de TextView4 según los eventos
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
-        }
+                eventsAdapter.notifyDataSetChanged()
+                updateTextViewVisibility()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
 
     private fun deleteEvent(event: Event, position: Int) {
-        val userEmail = auth.currentUser?.email
-
-        if (userEmail != null) {
-            val eventRef = db.collection("pacientes").document(userEmail).collection("eventos").document(event.id)
-
-            eventRef.delete()
-                .addOnSuccessListener {
-                    // Eliminar el evento de la lista local
-                    eventsList.removeAt(position)
-                    eventsAdapter.notifyItemRemoved(position)
-                    Toast.makeText(this, "Evento eliminado correctamente", Toast.LENGTH_SHORT).show()
-
-                    updateTextViewVisibility() // Actualizar la visibilidad de TextView4 según los eventos
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error al eliminar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "No se pudo obtener el correo del usuario", Toast.LENGTH_SHORT).show()
-        }
+        val userEmail = auth.currentUser?.email ?: return
+        db.collection("medicos").document(userEmail).get()
+            .addOnSuccessListener { document ->
+                val collection = if (document.exists()) "medicos" else "pacientes"
+                val eventsRef = db.collection(collection).document(userEmail).collection("eventos")
+                deleteEventFromCollection(eventsRef, event, position)
+            }
     }
 
-    // Nueva función para actualizar la visibilidad de textView4
+    private fun deleteEventFromCollection(eventsRef: CollectionReference, event: Event, position: Int) {
+        eventsRef.document(event.id).delete()
+            .addOnSuccessListener {
+                eventsList.removeAt(position)
+                eventsAdapter.notifyItemRemoved(position)
+                updateTextViewVisibility()
+                Toast.makeText(this, "Evento eliminado correctamente", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error al eliminar el evento: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
     private fun updateTextViewVisibility() {
-        if (eventsList.isNotEmpty()) {
-            textView4.visibility = TextView.VISIBLE
-        } else {
+        if (eventsList.isEmpty()) {
             textView4.visibility = TextView.GONE
+        } else {
+            textView4.visibility = TextView.VISIBLE
         }
     }
 }
