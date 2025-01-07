@@ -49,7 +49,7 @@ class ChangePassActivity : BaseActivity() {
             val user = Firebase.auth.currentUser
             val email = user?.email
 
-            if (email != null && user != null) {
+            if (email != null) {
                 val credential = EmailAuthProvider.getCredential(email, currentPassword)
 
                 user.reauthenticate(credential)

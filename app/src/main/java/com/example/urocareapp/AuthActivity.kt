@@ -3,12 +3,12 @@ package com.example.urocareapp
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.urocareapp.medico.HomeMedico
 import com.example.urocareapp.modelo.Alert
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -22,9 +22,8 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var passwd: EditText
     private lateinit var auth: FirebaseAuth
     private lateinit var btnAcceder: Button
-    private lateinit var checkBoxRememberMe: CheckBox // Para el CheckBox
+    private lateinit var checkBoxRememberMe: CheckBox
 
-    // Preferencias para almacenar el estado de "Recordar sesión"
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,30 +37,24 @@ class AuthActivity : AppCompatActivity() {
         btnAcceder = findViewById(R.id.btnAcceder)
         checkBoxRememberMe = findViewById(R.id.checkBoxRememberMe)
 
-        // Inicializa SharedPreferences
         sharedPreferences = getSharedPreferences("UserPreferences", MODE_PRIVATE)
 
-        // Aquí no hacemos login automáticamente, solo verificamos si las credenciales están guardadas
         val savedEmail = sharedPreferences.getString("email", null)
         val savedPassword = sharedPreferences.getString("password", null)
 
-        // Si las credenciales están guardadas y el CheckBox está marcado, cargarlas
         if (savedEmail != null && savedPassword != null) {
             email.setText(savedEmail)
             passwd.setText(savedPassword)
-            checkBoxRememberMe.isChecked = true // Marcar la casilla si hay credenciales guardadas
+            checkBoxRememberMe.isChecked = true
         } else {
-            checkBoxRememberMe.isChecked = false // Desmarcar la casilla si no hay credenciales guardadas
+            checkBoxRememberMe.isChecked = false
         }
 
-        // Al cargar la actividad, establecer el color del CheckBox según si está marcado o no
         setCheckBoxColor(checkBoxRememberMe.isChecked)
 
         checkBoxRememberMe.setOnCheckedChangeListener { _, isChecked ->
             setCheckBoxColor(isChecked)
-
             if (!isChecked) {
-                // Si el checkbox está desmarcado, eliminar las credenciales
                 with(sharedPreferences.edit()) {
                     remove("email")
                     remove("password")
@@ -75,15 +68,13 @@ class AuthActivity : AppCompatActivity() {
 
     private fun setCheckBoxColor(isChecked: Boolean) {
         if (isChecked) {
-            // Color cuando está marcado
             checkBoxRememberMe.buttonTintList = ContextCompat.getColorStateList(this, R.color.primary)
         } else {
-            // Color cuando NO está marcado
             checkBoxRememberMe.buttonTintList = ContextCompat.getColorStateList(this, R.color.black)
         }
     }
 
-    fun setup() {
+    private fun setup() {
         val btnResetPass = findViewById<Button>(R.id.btnResetPassword)
         val resetPasswordIntent = Intent(this, ResetPassActivity::class.java)
 
@@ -111,7 +102,6 @@ class AuthActivity : AppCompatActivity() {
                     passwd.text.toString()
                 ).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Guardar las credenciales si el CheckBox está marcado
                         if (checkBoxRememberMe.isChecked) {
                             with(sharedPreferences.edit()) {
                                 putString("email", email.text.toString())
@@ -119,9 +109,7 @@ class AuthActivity : AppCompatActivity() {
                                 apply()
                             }
                         }
-                        startActivity(Intent(this, HomePaciente::class.java))
-                        email.text.clear()
-                        passwd.text.clear()
+                        showHome(email.text.toString())
                     } else {
                         Alert.showAlert(this, "Fallo en el inicio de sesión", Alert.AlertType.ERROR)
                     }
@@ -135,13 +123,23 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun showHome(email: String) {
-        Firebase.firestore.collection("Medicos")
-            .document(email).get().addOnSuccessListener {
-                if (it.exists()) {
-                    //startActivity(Intent(this, HomeMedicoActivity::class.java))
+        val db = Firebase.firestore
+
+        db.collection("medicos") // Verifica que estés usando el nombre correcto "medicos"
+            .document(email) // Busca por el ID del documento, que es el email
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Si el documento existe, redirige al Home de Médicos
+                    startActivity(Intent(this, HomeMedico::class.java))
                 } else {
-                    //startActivity(Intent(this, HomePaciente::class.java))
+                    // Si no existe, redirige al Home de Pacientes
+                    startActivity(Intent(this, HomePaciente::class.java))
                 }
+            }
+            .addOnFailureListener { exception ->
+                // Manejo de errores al consultar Firestore
+                Alert.showAlert(this, "Error al verificar el rol: ${exception.message}", Alert.AlertType.ERROR)
             }
     }
 }
