@@ -49,10 +49,12 @@
             android:exported="false" /> <!-- Actividad de Pantalla Info -->
         <activity
             android:name=".PantallaInfo"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity
             android:name=".CuidadosPostcirujia"
-            android:exported="true"></activity>
+            android:exported="true">
+        </activity>
         <activity
             android:name=".PerfilPaciente"
             android:exported="true"></activity>
@@ -82,7 +84,13 @@
             android:exported="false" />
         <activity
             android:name=".CalendarioMedicoActivity"
-            android:exported="false" />
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".RegistroPaciente"
+            android:exported="true">
+        </activity>
+        
     </application>
 
 </manifest>
