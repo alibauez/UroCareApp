@@ -85,15 +85,22 @@ class AuthActivity : AppCompatActivity() {
                     passwd.text.toString()
                 ).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        showHome(email.text.toString())
+                        // Redirige a la pantalla de registro
+                        val intent = Intent(this, RegistroPaciente::class.java)
+                        startActivity(intent)
+
+                        // Limpia los campos de texto
                         email.text.clear()
                         passwd.text.clear()
                     } else {
                         Alert.showAlert(this, "Registro fallido", Alert.AlertType.ERROR)
                     }
                 }
+            } else {
+                Alert.showAlert(this, "Por favor, completa todos los campos", Alert.AlertType.INFO)
             }
         }
+
 
         btnAcceder.setOnClickListener {
             if (email.text.isNotBlank() && passwd.text.isNotBlank()) {

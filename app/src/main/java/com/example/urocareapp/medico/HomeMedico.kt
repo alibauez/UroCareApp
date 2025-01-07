@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.urocareapp.BaseActivity
 import com.example.urocareapp.R
 
-class HomeMedico : BaseActivity() {
+class HomeMedico : BaseActivityMedico() {
 
     private lateinit var btnPantallaInfo: Button
     private lateinit var btnCuidados: Button

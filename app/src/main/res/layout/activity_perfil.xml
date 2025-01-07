@@ -139,6 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Alergias"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -170,7 +171,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAllergies"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 
