@@ -18,6 +18,7 @@ class HomePaciente : BaseActivity() {
         btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
         btnCalendar = findViewById(R.id.btnCalendar)
         btnCuidados = findViewById(R.id.btnCuidados)
+
         setup()
     }
 
@@ -31,7 +32,7 @@ class HomePaciente : BaseActivity() {
         }
 
         btnCuidados.setOnClickListener {
-            startActivity(intentCalendar)
+            startActivity(intentCuidados)
         }
 
         btnCalendar.setOnClickListener {
