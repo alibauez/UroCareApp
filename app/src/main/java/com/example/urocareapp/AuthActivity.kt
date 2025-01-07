@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.urocareapp.medico.HomeMedico
@@ -77,29 +78,52 @@ class AuthActivity : AppCompatActivity() {
     private fun setup() {
         val btnResetPass = findViewById<Button>(R.id.btnResetPassword)
         val resetPasswordIntent = Intent(this, ResetPassActivity::class.java)
-
+        val db = Firebase.firestore
         btnRegistro.setOnClickListener {
             if (email.text.isNotBlank() && passwd.text.isNotBlank()) {
+                // Registra al usuario en Firebase Authentication
                 auth.createUserWithEmailAndPassword(
                     email.text.toString(),
                     passwd.text.toString()
                 ).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        // Redirige a la pantalla de registro
-                        val intent = Intent(this, RegistroPaciente::class.java)
-                        startActivity(intent)
+                        // Datos iniciales del usuario
+                        val userData = hashMapOf(
+                            "alergias" to arrayListOf<String>(), // Inicialmente vacío
+                            "altura" to "",
+                            "peso" to "",
+                            "apellidos" to "",
+                            "genero" to "",
+                            "nombre" to "",
+                            "grupoSanguineo" to "0+",
+                            "fechaNacimiento" to null
+                        )
 
-                        // Limpia los campos de texto
-                        email.text.clear()
-                        passwd.text.clear()
+                        // Crea el documento en Firestore bajo la colección "pacientes"
+                        db.collection("pacientes")
+                            .document(email.text.toString())
+                            .set(userData)
+                            .addOnSuccessListener {
+                                // Redirige a la pantalla de registro
+                                val intent = Intent(this, RegistroPaciente::class.java)
+                                startActivity(intent)
+
+                                // Limpia los campos de texto
+                                email.text.clear()
+                                passwd.text.clear()
+                            }
+                            .addOnFailureListener { e ->
+                                Alert.showAlert(this, "Error al guardar los datos: ${e.message}", Alert.AlertType.ERROR)
+                            }
                     } else {
-                        Alert.showAlert(this, "Registro fallido", Alert.AlertType.ERROR)
+                        Alert.showAlert(this, "Registro fallido: ${task.exception?.message}", Alert.AlertType.ERROR)
                     }
                 }
             } else {
                 Alert.showAlert(this, "Por favor, completa todos los campos", Alert.AlertType.INFO)
             }
         }
+
 
 
         btnAcceder.setOnClickListener {
@@ -133,14 +157,23 @@ class AuthActivity : AppCompatActivity() {
         val db = Firebase.firestore
 
         db.collection("medicos") // Verifica que estés usando el nombre correcto "medicos"
-            .document(email) // Busca por el ID del documento, que es el email
+            .document(email.toString()) // Busca por el ID del documento, que es el email
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    // Si el documento existe, redirige al Home de Médicos
-                    startActivity(Intent(this, HomeMedico::class.java))
+                    val nombre = document.getString("nombre")
+                    val apellidos = document.getString("apellidos")
+
+                    if (nombre.isNullOrEmpty() || apellidos.isNullOrEmpty()) {
+                        // Si "nombre" o "apellidos" están vacíos, redirige a la pantalla de registro
+                        Toast.makeText(this, "Por favor completa tu registro.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, RegistroPaciente::class.java))
+                    } else {
+                        // Si los datos están completos, redirige al Home de Médicos
+                        startActivity(Intent(this, HomeMedico::class.java))
+                    }
                 } else {
-                    // Si no existe, redirige al Home de Pacientes
+                    // Si no existe el documento en "medicos", redirige al Home de Pacientes
                     startActivity(Intent(this, HomePaciente::class.java))
                 }
             }
@@ -148,5 +181,6 @@ class AuthActivity : AppCompatActivity() {
                 // Manejo de errores al consultar Firestore
                 Alert.showAlert(this, "Error al verificar el rol: ${exception.message}", Alert.AlertType.ERROR)
             }
+
     }
 }
