@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".CuidadosPostcirujia">
+    tools:context=".ConsejosAlimentarios">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_marginBottom="16dp"
             android:contentDescription="Preparación preoperatoria"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_postcirujia" />
+            android:src="@drawable/infoconsejospaciente" />
 
         <!-- Título -->
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:text="Preparación para procedimientos postoperatorios"
+            android:text="Consejos Alimentarios"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -43,10 +43,10 @@
         <TextView
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:gravity="center"
-            android:text="Hidrátate constantemente: Bebe al menos 2-3 litros de agua al día para ayudar a eliminar residuos y prevenir la formación de nuevas piedras."
+            android:text="Después de tu procedimiento, es fundamental ajustar tu dieta para evitar la formación de nuevas piedras. Prioriza alimentos frescos como frutas, verduras y granos enteros, y limita la ingesta de proteínas animales y oxalatos, presentes en alimentos como espinacas y remolachas."
             android:textColor="#666666"
             android:textSize="14sp" />
 

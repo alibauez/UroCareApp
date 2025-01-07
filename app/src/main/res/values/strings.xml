@@ -102,6 +102,18 @@
         <item>Toma los medicamentos recetados: Cumple estrictamente con los analgésicos o antibióticos indicados para aliviar el dolor y prevenir infecciones.</item>
     </string-array>
 
+    <string-array name="text_list3">
+        <item>Después de tu procedimiento, es fundamental ajustar tu dieta para evitar la formación de nuevas piedras. Prioriza alimentos frescos como frutas, verduras y granos enteros, y limita la ingesta de proteínas animales y oxalatos, presentes en alimentos como espinacas y remolachas.</item>
+        <item>Aumenta tu consumo de agua: Bebe al menos 2 litros de agua al día para mantener tu orina diluida y facilitar la eliminación de sustancias que podrían formar nuevas piedras. El agua es tu mejor aliado para prevenir la recurrencia de cálculos renales.</item>
+        <item>Consulta a un nutricionista: Cada persona es única y sus necesidades nutricionales pueden variar. Un profesional de la nutrición te puede elaborar un plan de alimentación personalizado, teniendo en cuenta tu tipo de cálculos y otras condiciones de salud."</item>
+    </string-array>
+
+    <string-array name="text_list4">
+        <item>El seguimiento de tus hábitos diarios es fundamental para prevenir la recurrencia de la litiais urinaria.</item>
+        <item>Limita el consumo de sal: El sodio aumenta la excreción de calcio por la orina, lo que puede contribuir a la formación de cálculos. Reducir la ingesta de alimentos procesados y sal añadida es clave para mantener los niveles de sodio bajo control.</item>
+        <item>Mantén un peso saludable: La obesidad se ha asociado con un mayor riesgo de desarrollar cálculos renales. Perder peso, si es necesario, y mantener un estilo de vida activo puede ayudar a prevenir la recurrencia.</item>
+    </string-array>
+
     <string-array name="blood_group_options">
         <item>0-</item>
         <item>0+</item>

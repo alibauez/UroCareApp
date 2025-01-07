@@ -3,25 +3,22 @@ package com.example.urocareapp
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 
-class PantallaInfo : BaseActivity() {
+class SeguimientoDeHabitos : AppCompatActivity() {
 
     private lateinit var descriptionText: TextView
     private lateinit var indicators: List<View>
     private var currentIndex = 0
     private lateinit var textList: List<String>
-
-
     private var textRotationRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_pantallainfo)
+        setContentView(R.layout.activity_seguimiento_de_habitos)
+
         // Lista de textos que rotarán en el TextView
-        textList = resources.getStringArray(R.array.text_list).toList()
-        setSupportActionBar(findViewById(R.id.toolbar))
+        textList = resources.getStringArray(R.array.text_list4).toList()
 
         // Vinculamos las vistas
         descriptionText = findViewById(R.id.descriptionText)
@@ -31,7 +28,7 @@ class PantallaInfo : BaseActivity() {
             findViewById(R.id.indicator3)
         )
 
-        // Llama a updateIndicators() aquí para inicializar los indicadores
+        // Inicializamos los indicadores
         updateIndicators()
 
         // Iniciar la rotación de texto
