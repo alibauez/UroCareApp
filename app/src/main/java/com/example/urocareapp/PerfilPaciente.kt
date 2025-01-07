@@ -1,5 +1,6 @@
 package com.example.urocareapp
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,6 +40,13 @@ class PerfilPaciente : BaseActivity() {
         val db = Firebase.firestore
         val user1 = Firebase.auth.currentUser
         val userId = user1?.uid
+        val btnEdit = findViewById<Button>(R.id.btnEditAllergies)
+        val allergies = mutableListOf<String>()
+        val btnAñadirAllergies = findViewById<Button>(R.id.btnAñadirAllergies)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewAllergies)
+
+
+
         val email = Firebase.auth.currentUser?.email
 
         // Configurar botón para cambiar contraseña
@@ -78,10 +86,120 @@ class PerfilPaciente : BaseActivity() {
 
                 val allergiesList = it.get("alergias") as? List<String> ?: emptyList()
                 Log.d("alergias", allergiesList.toString())
+                allergies.clear()
+                allergies.addAll(allergiesList)
                 setupRecyclerView(allergiesList)
             }
 
-        // Configurar Spinner de grupo sanguíneo
+        btnEdit.setOnClickListener {
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.dialog_edit_allergies)
+
+            val recyclerView = dialog.findViewById<RecyclerView>(R.id.recyclerViewEditAllergies)
+            val btnCloseDialog = dialog.findViewById<Button>(R.id.btnCloseDialog)
+
+            // Declarar adapter aquí, accesible para todos los bloques dentro del diálogo
+            val adapter = EditAllergiesAdapter(allergies) { position ->
+                // Elimina el ítem de la lista local
+                val removedAllergy = allergies.removeAt(position)
+                recyclerView.adapter?.notifyItemRemoved(position)
+
+
+
+                email?.let {
+                    db.collection("pacientes")
+                        .document(email)
+                        .update("alergias", allergies)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Alergia eliminada", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firebase", "Error al eliminar alergia: ", e)
+                            // Si hay un error, vuelve a agregar la alergia eliminada a la lista local
+                            allergies.add(position, removedAllergy)
+                            recyclerView.adapter?.notifyItemInserted(position)
+                        }
+                }
+            }
+
+            // Configura el RecyclerView
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+
+            // Al presionar el botón de cerrar, recargar la actividad actual
+            btnCloseDialog.setOnClickListener {
+                dialog.dismiss()
+                recreate() // Recarga la actividad actual
+            }
+
+            dialog.show()
+        }
+
+        btnAñadirAllergies.setOnClickListener {
+            // Create a dialog for adding a new allergy
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.dialog_add_allergy)
+
+            val allergyEditText = dialog.findViewById<EditText>(R.id.etNewAllergy) // EditText to input new allergy
+            val btnAddAllergy = dialog.findViewById<Button>(R.id.btnAddAllergy) // Button to confirm the addition
+            val btnCloseDialog = dialog.findViewById<Button>(R.id.btnCloseDialog)
+
+            // Add button click listener to add the allergy
+            btnAddAllergy.setOnClickListener {
+                val newAllergy = allergyEditText.text.toString().trim()
+                if (newAllergy.isNotEmpty()) {
+                    // Add new allergy to the local list
+                    allergies.add(newAllergy)
+
+                    // Notify RecyclerView adapter of the new item
+                    recyclerView.adapter?.notifyItemInserted(allergies.size - 1)
+
+                    // Update Firebase with the new list of allergies
+                    email?.let {
+                        db.collection("pacientes")
+                            .document(email)
+                            .update("alergias", allergies)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Alergia añadida", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("Firebase", "Error al añadir alergia: ", e)
+                                // Optionally, handle failure case (like undoing the addition in the local list)
+                            }
+                    }
+
+                    // Close the dialog after adding the allergy
+                    dialog.dismiss()
+                    recreate()
+                } else {
+                    Toast.makeText(this, "Por favor ingresa una alergia", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            // Close dialog button
+            btnCloseDialog.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+
+
+
+
+
+
+        // Botón para navegar a la pantalla de registro
+        val personalDataButton: Button = findViewById(R.id.btnPersonalData)
+        personalDataButton.setOnClickListener {
+            val intent = Intent(this, RegistroPaciente::class.java)
+            startActivity(intent)
+        }
+
+
+
+
+        // Cargar las opciones del Spinner desde el recurso strings.xml
         val bloodGroupOptions = resources.getStringArray(R.array.blood_group_options)
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroupOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -155,4 +273,39 @@ class PerfilPaciente : BaseActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = AllergiesAdapter(allergies)
     }
+
+    class EditAllergiesAdapter(
+        private val allergies: MutableList<String>,
+        private val onItemRemoveListener: (Int) -> Unit
+    ) : RecyclerView.Adapter<EditAllergiesAdapter.ViewHolder>() {
+
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val textViewAllergy: TextView = view.findViewById(R.id.tvAllergy)
+            val buttonRemove: Button = view.findViewById(R.id.btnRemove)
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_allergy_edit, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val allergy = allergies[position]
+            holder.textViewAllergy.text = allergy
+
+            holder.buttonRemove.setOnClickListener {
+                // Llama al listener para manejar la eliminación
+                onItemRemoveListener(position)
+            }
+        }
+
+        override fun getItemCount(): Int = allergies.size
+    }
+
+
+
+
+
+
 }
