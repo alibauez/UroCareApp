@@ -23,7 +23,9 @@
             android:exported="false" />
         <activity
             android:name=".ResetPassActivity"
+            android:name=".medico.ConsejosAlimentariosMedico"
             android:exported="false" />
+        <!-- Actividad principal de la app -->
         <activity
             android:name=".FirstScreen"
             android:exported="true">
@@ -32,16 +34,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- Actividad de HomeMedico -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name=".medico.HomeMedico"
+            android:exported="true" /> <!-- Actividad de Calendario -->
         <activity
-            android:name=".HomePaciente"
-            android:exported="true" />
+            android:name=".CalendarActivity"
+            android:exported="false" /> <!-- Actividad de Términos y Condiciones -->
         <activity
-            android:name=".AuthActivity"
-            android:exported="true" />
+            android:name=".TermsConditionsActivity"
+            android:exported="false" /> <!-- Actividad de Restablecimiento de Contraseña -->
+        <activity
+            android:name=".ResetPassActivity"
+            android:exported="false" /> <!-- Actividad de Pantalla Info -->
         <activity
             android:name=".PantallaInfo"
             android:exported="true"></activity>
@@ -51,6 +56,33 @@
         <activity
             android:name=".PerfilPaciente"
             android:exported="true"></activity>
+        <activity
+            android:name=".PerfilPaciente"
+            android:exported="true" /> <!-- Actividad Principal -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" /> <!-- Actividad de HomePaciente -->
+        <activity
+            android:name=".HomePaciente"
+            android:exported="true" /> <!-- Actividad de Autenticación -->
+        <activity
+            android:name=".AuthActivity"
+            android:exported="true" /> <!-- Otras actividades necesarias -->
+        <activity
+            android:name=".PreparacionOperacionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CuidadosPostquirurgicosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ConsejosAlimentariosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ControlHabitosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarioMedicoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

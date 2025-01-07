@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".medico.ConsejosAlimentariosMedico">
+
+    <!-- ScrollView para contenido desplazable -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Botón de cerrar -->
+            <ImageView
+                android:id="@+id/btnClose"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Cerrar"
+                android:src="@drawable/ic_salir" />
+
+            <!-- Sección de Recomendaciones -->
+            <TextView
+                android:id="@+id/tvRecommendations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recomendaciones"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Hidratación -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_hab"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/primary_claro"
+                        android:padding="8dp"
+                        android:contentDescription="Hidratación" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hidratación"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Introduce tus datos de hidratación"
+                            android:textSize="14sp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Campo editable -->
+                <EditText
+                    android:id="@+id/etHidratacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Escribe tu hidratación diaria"
+                    android:textSize="14sp"
+                    android:padding="8dp"
+                    android:background="@color/white" />
+
+                <!-- Botón de guardar -->
+                <Button
+                    android:id="@+id/btnGuardarHidratacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Guardar"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+
+            <!-- Frutas y Verduras -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/fruta"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/primary_claro"
+                        android:padding="8dp"
+                        android:contentDescription="Frutas y Verduras" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Frutas y Verduras"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvFrutasVerduras"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Consume frutas y verduras frescas diariamente para garantizar una dieta equilibrada."
+                            android:textSize="14sp"
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+
+                    <!-- Botón para expandir -->
+                    <ImageView
+                        android:id="@+id/btnExpandFrutasVerduras"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/expand"
+                        android:contentDescription="Expandir" />
+                </LinearLayout>
+
+                <!-- Descripción oculta -->
+                <TextView
+                    android:id="@+id/tvDescripcionFrutasVerduras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Las frutas y verduras proporcionan vitaminas, minerales y antioxidantes esenciales para tu salud."
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:visibility="gone"
+                    android:paddingStart="48dp"
+                    android:paddingTop="8dp" />
+            </LinearLayout>
+
+            <!-- Granos enteros -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/grano"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/primary_claro"
+                    android:padding="8dp"
+                    android:contentDescription="Granos enteros" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Granos Enteros"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Título de "Evitar" -->
+            <TextView
+                android:id="@+id/tvAvoid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Evitar"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Sal -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/sal"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/primary_claro"
+                    android:padding="8dp"
+                    android:contentDescription="Sal" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sal"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Consejos y recetas -->
+            <TextView
+                android:id="@+id/tvRecipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Consejos y Recetas"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Pescado con costra de nuez -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/pescadoconcostradenuez"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Pescado con costra de nuez" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Pescado con costra de nuez"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

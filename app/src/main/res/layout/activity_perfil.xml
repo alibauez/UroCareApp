@@ -26,6 +26,7 @@ tools:context=".PerfilPaciente">
 
     <TextView
         android:id="@+id/tvGender"
+        android:layout_marginStart="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Género"
@@ -37,6 +38,7 @@ tools:context=".PerfilPaciente">
 
     <TextView
         android:id="@+id/tvDate"
+        android:layout_marginStart="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Fecha de Nacimiento"
@@ -48,7 +50,7 @@ tools:context=".PerfilPaciente">
 
     <!-- Sección Información médica -->
     <TextView
-        android:padding="16dp"
+        android:layout_marginStart="16dp"
         android:id="@+id/tvMedicalInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,6 +62,7 @@ tools:context=".PerfilPaciente">
         android:layout_marginTop="16dp" />
 
     <LinearLayout
+        android:padding="16dp"
         android:id="@+id/medicalInfoContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,6 +87,7 @@ tools:context=".PerfilPaciente">
 
             <Spinner
                 android:id="@+id/spinnerBloodGroup"
+                android:layout_marginEnd="33dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -106,7 +110,9 @@ tools:context=".PerfilPaciente">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="Ingrese altura (cm)" />
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="30dp"
+                android:hint="Altura (cm)" />
         </LinearLayout>
 
         <!-- Peso -->
@@ -117,7 +123,7 @@ tools:context=".PerfilPaciente">
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="12dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Peso" />
@@ -127,7 +133,9 @@ tools:context=".PerfilPaciente">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="numberDecimal"
-                android:hint="Ingrese peso (kg)" />
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="200dp"
+                android:hint="Peso (Kg)  " />
         </LinearLayout>
 
         <!-- Alergias -->
@@ -148,7 +156,7 @@ tools:context=".PerfilPaciente">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewAllergies"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="200dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -174,7 +182,8 @@ tools:context=".PerfilPaciente">
 
     <!-- Sección Información general -->
     <TextView
-        android:padding="16dp"
+
+        android:layout_marginStart="16dp"
         android:id="@+id/tvGeneralInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -186,6 +195,7 @@ tools:context=".PerfilPaciente">
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
+        android:padding="16dp"
         android:id="@+id/generalInfoContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

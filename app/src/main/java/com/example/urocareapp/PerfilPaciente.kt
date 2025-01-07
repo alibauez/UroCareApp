@@ -26,6 +26,9 @@ class PerfilPaciente : BaseActivity() {
 
         val userNameTextView = findViewById<TextView>(R.id.tvName)
         val userGenderTextView = findViewById<TextView>(R.id.tvGender)
+        val alturaTextView = findViewById<TextView>(R.id.etHeight)
+        val pesoTextView = findViewById<TextView>(R.id.etWeight)
+
         val bloodGroupSpinner = findViewById<Spinner>(R.id.spinnerBloodGroup)
         val etHeight = findViewById<EditText>(R.id.etHeight)
         val etWeight = findViewById<EditText>(R.id.etWeight)
@@ -49,12 +52,15 @@ class PerfilPaciente : BaseActivity() {
             .document(email.toString())
             .get()
             .addOnSuccessListener {
-                val nombreBD = it.get("nombre").toString()
-                userNameTextView.text = if (nombreBD != "null") nombreBD else ""
-                val genderBd = it.get("genero").toString()
-                userGenderTextView.text = if (genderBd != "null") genderBd else ""
-
-                val groupBD = it.get("grupoSanguineo").toString()
+                var nombreBD = it.get("nombre").toString()
+                userNameTextView.setText(if (nombreBD != "null") nombreBD else "")
+                var genderBd = it.get("genero").toString()
+                userGenderTextView.setText(if (genderBd != "null") genderBd else "")
+                var alturaBD = it.get("altura").toString()
+                alturaTextView.setText(if (alturaBD != "null") alturaBD else "")
+                var pesoBd = it.get("peso").toString()
+                pesoTextView.setText(if (pesoBd != "null") pesoBd else "")
+                var groupBD = it.get("grupoSanguineo").toString()
                 if (groupBD != "null") {
                     val bloodGroupOptions = resources.getStringArray(R.array.blood_group_options)
                     val position = bloodGroupOptions.indexOf(groupBD)
@@ -99,16 +105,19 @@ class PerfilPaciente : BaseActivity() {
 
         // Guardar altura y peso
         btnSave.setOnClickListener {
-            val updatedHeight = etHeight.text.toString()
-            val updatedWeight = etWeight.text.toString()
+            val updatedHeight = alturaTextView.text.toString()
+            val updatedWeight = pesoTextView.text.toString()
+            val updateBlood = bloodGroupSpinner.selectedItem.toString()
 
             val userData = hashMapOf(
-                "height" to updatedHeight,
-                "weight" to updatedWeight
+                "altura" to updatedHeight,
+                "peso" to updatedWeight,
+                "grupoSanguineo" to updateBlood,
             )
 
             userId?.let {
-                db.collection("users").document(it).set(userData, SetOptions.merge())
+                db.collection("pacientes").document(email.toString())
+                    .set(userData, SetOptions.merge())
                     .addOnSuccessListener {
                         Log.d("Firebase", "Datos actualizados correctamente")
                         Toast.makeText(this, "Datos guardados", Toast.LENGTH_SHORT).show()

@@ -140,7 +140,7 @@ class AuthActivity : AppCompatActivity() {
                 if (it.exists()) {
                     //startActivity(Intent(this, HomeMedicoActivity::class.java))
                 } else {
-                    startActivity(Intent(this, HomePaciente::class.java))
+                    //startActivity(Intent(this, HomePaciente::class.java))
                 }
             }
     }

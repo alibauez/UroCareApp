@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".medico.HomeMedico">
+
+    <!-- Título principal -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="PERFIL MÉDICO"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón: Preparación operación -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnPantallaInfo"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Preparación para Operaciones"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/ic_med"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:iconTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/titleText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón: Cuidados postcirugía -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCuidados"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Cuidados Postquirúrgicos"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/ic_post"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:iconTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/btnPantallaInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón: Consejos alimentarios -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConsejos"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Consejos Alimentarios"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/ic_tip"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:iconTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/btnCuidados"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón: Seguimiento de hábitos -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHabitos"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Control de Hábitos"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/ic_hab"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:iconTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/btnConsejos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Botón: Calendario -->
+    <Button
+        android:id="@+id/btnCalendar"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Calendario Médico"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/calendario"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:layout_constraintTop_toBottomOf="@id/btnHabitos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Barra de herramientas -->
+    <include layout="@layout/toolbar_paciente" />
+</androidx.constraintlayout.widget.ConstraintLayout>
