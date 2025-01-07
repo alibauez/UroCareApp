@@ -13,6 +13,9 @@
         android:theme="@style/Theme.UroCareApp"
         tools:targetApi="31">
         <activity
+            android:name=".ConsejosAlimentariosPacienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChangePassActivity"
             android:exported="false" />
         <activity
@@ -29,6 +32,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,16 +41,13 @@
             android:exported="true" />
         <activity
             android:name=".PantallaInfo"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".CuidadosPostcirujia"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".PerfilPaciente"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
@@ -56,12 +57,9 @@
         <activity
             android:name=".AuthActivity"
             android:exported="true" />
-
         <activity
             android:name=".RegistroPaciente"
-            android:exported="true">
-        </activity>
-        
+            android:exported="true"></activity>
     </application>
 
 </manifest>

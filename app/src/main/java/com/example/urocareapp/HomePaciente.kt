@@ -9,12 +9,15 @@ class HomePaciente : BaseActivity() {
     private lateinit var btnPantallaInfo: Button
     private lateinit var btnCalendar: Button
     private lateinit var btnCuidados: Button
+    private lateinit var btnConsejos: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_paciente)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        btnConsejos = findViewById(R.id.btnConsejos)
         btnPantallaInfo = findViewById(R.id.btnPantallaInfo)
         btnCalendar = findViewById(R.id.btnCalendar)
         btnCuidados = findViewById(R.id.btnCuidados)
@@ -25,6 +28,7 @@ class HomePaciente : BaseActivity() {
         val intentPantallaInfo = Intent(this, PantallaInfo::class.java)
         val intentCalendar = Intent(this, CalendarActivity::class.java)
         val intentCuidados = Intent(this, CuidadosPostcirujia::class.java)
+        val intentConsejos = Intent(this, ConsejosAlimentariosPacienteActivity::class.java)
 
         btnPantallaInfo.setOnClickListener {
             startActivity(intentPantallaInfo)
@@ -37,5 +41,9 @@ class HomePaciente : BaseActivity() {
         btnCalendar.setOnClickListener {
             startActivity(intentCalendar)
         }
+        btnConsejos.setOnClickListener {
+            startActivity(intentConsejos)
+        }
+
     }
 }

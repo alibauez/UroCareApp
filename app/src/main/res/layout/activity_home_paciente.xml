@@ -7,7 +7,27 @@
     android:background="@android:color/white">
 
 
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnHabitos"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_margin="12dp"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="80dp"
+        android:backgroundTint="@color/primary_claro"
+        android:text="Seguimiento de hábitos"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:cornerRadius="15dp"
+        app:icon="@drawable/ic_hab"
+        app:iconGravity="start"
+        app:iconPadding="8dp"
+        app:iconSize="32dp"
+        app:iconTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCuidados" />
 
     <TextView
         android:id="@+id/titleText"
@@ -63,11 +83,13 @@
         app:iconSize="32dp"
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.698"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnPantallaInfo" />
 
+
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addAdvice"
+        android:id="@+id/btnConsejos"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
@@ -83,37 +105,18 @@
         app:iconSize="32dp"
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCuidados" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnHabitos"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_margin="12dp"
-        android:layout_marginStart="139dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="80dp"
-        android:backgroundTint="@color/primary_claro"
-        android:text="Seguimiento de hábitos"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:cornerRadius="15dp"
-        app:icon="@drawable/ic_hab"
-        app:iconGravity="start"
-        app:iconPadding="8dp"
-        app:iconSize="32dp"
-        app:iconTint="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addAdvice" />
+        app:layout_constraintTop_toBottomOf="@+id/btnHabitos" />
 
     <Button
         android:id="@+id/btnCalendar"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
+        android:layout_marginStart="232dp"
         android:layout_marginTop="22dp"
+        android:layout_marginEnd="122dp"
         android:backgroundTint="@color/primary_claro"
         android:text="Calendario"
         android:textColor="@color/black"
@@ -126,7 +129,7 @@
         app:iconTint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnHabitos" />
+        app:layout_constraintTop_toBottomOf="@+id/btnConsejos" />
 
     <include layout="@layout/toolbar_paciente"/>
 
