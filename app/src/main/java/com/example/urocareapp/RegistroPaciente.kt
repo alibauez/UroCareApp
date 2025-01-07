@@ -7,11 +7,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.urocareapp.medico.HomeMedico
+import com.example.urocareapp.medico.PerfilMedico
+import com.example.urocareapp.modelo.Alert
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ktx.firestore
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class RegistroPaciente : BaseActivity() {
+class RegistroPaciente : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
     private val email = Firebase.auth.currentUser?.email
 
@@ -24,7 +29,7 @@ class RegistroPaciente : BaseActivity() {
         val surnameEditText: EditText = findViewById(R.id.etSurname)
         val dobEditText: EditText = findViewById(R.id.etDob)
         val genderSpinner: Spinner = findViewById(R.id.spinnerGender)
-        val bloodGroupSpinner: Spinner = findViewById(R.id.spinnerBloodGroup)
+
         val continueButton: Button = findViewById(R.id.btnContinue)
 
         // Configurar Spinner de Género
@@ -33,11 +38,8 @@ class RegistroPaciente : BaseActivity() {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderSpinner.adapter = genderAdapter
 
-        // Configurar Spinner de Grupo Sanguíneo
-        val bloodGroupOptions = listOf("0-", "0+", "A-", "A+", "B-", "B+", "AB-", "AB+")
-        val bloodGroupAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, bloodGroupOptions)
-        bloodGroupAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        bloodGroupSpinner.adapter = bloodGroupAdapter
+
+
         db.collection("pacientes").document(email.toString()).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
@@ -58,10 +60,7 @@ class RegistroPaciente : BaseActivity() {
                         if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
                     }
 
-                    if (bloodGroup != null) {
-                        val bloodGroupIndex = bloodGroupOptions.indexOf(bloodGroup)
-                        if (bloodGroupIndex >= 0) bloodGroupSpinner.setSelection(bloodGroupIndex)
-                    }
+
                 }
             }
             .addOnFailureListener { e ->
@@ -74,7 +73,7 @@ class RegistroPaciente : BaseActivity() {
             val surname = surnameEditText.text.toString().trim()
             val dob = dobEditText.text.toString().trim()
             val gender = genderSpinner.selectedItem.toString()
-            val bloodGroup = bloodGroupSpinner.selectedItem.toString()
+
 
             if (name.isEmpty() || surname.isEmpty() || dob.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos obligatorios.", Toast.LENGTH_SHORT).show()
@@ -92,25 +91,51 @@ class RegistroPaciente : BaseActivity() {
                         "apellidos" to surname,
                         "fechaNacimiento" to dobTimestamp,
                         "genero" to gender,
-                        "grupoSanguineo" to bloodGroup
+
                     )
 
-                    // Actualizar los datos en Firebase
-                    db.collection("pacientes").document(email.toString())
-                        .update(userData)
-                        .addOnSuccessListener {
-                            Toast.makeText(this, "Datos guardados exitosamente.", Toast.LENGTH_SHORT).show()
+                    db.collection("medicos") // Verifica que estés usando el nombre correcto "medicos"
+                        .document(email.toString()) // Busca por el ID del documento, que es el email
+                        .get()
+                        .addOnSuccessListener { document ->
+                            if (document.exists()) {
+                                db.collection("medicos").document(email.toString())
+                                    .update(userData)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Datos guardados exitosamente.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
 
-                            // Redirigir a la pantalla de perfil
-                            val intent = Intent(this, PerfilPaciente::class.java)
-                            startActivity(intent)
+                                        // Redirigir a la pantalla de perfil
+                                        val intent = Intent(this, PerfilMedico::class.java)
+                                        startActivity(intent)
 
-                            // Finaliza la actividad actual para que no quede en el stack
-                            finish()
+                                        // Finaliza la actividad actual para que no quede en el stack
+                                        finish()
+                                    }
+                            } else {
+                                db.collection("pacientes").document(email.toString())
+                                    .update(userData).addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Datos guardados exitosamente.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+
+                                        // Redirigir a la pantalla de perfil
+                                        val intent = Intent(this, PerfilPaciente::class.java)
+                                        startActivity(intent)
+
+                                        // Finaliza la actividad actual para que no quede en el stack
+                                        finish()
+                                    }
+
+                            }
                         }
-                        .addOnFailureListener { e ->
-                            Toast.makeText(this, "Error al guardar datos: ${e.message}", Toast.LENGTH_SHORT).show()
-                        }
+
+
                 } catch (e: Exception) {
                     Toast.makeText(this, "Formato de fecha inválido. Usa dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
                 }
@@ -119,4 +144,6 @@ class RegistroPaciente : BaseActivity() {
 
 
     }
+
+
 }

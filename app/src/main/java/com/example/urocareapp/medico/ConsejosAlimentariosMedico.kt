@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.example.urocareapp.R
 
-class ConsejosAlimentariosMedico : AppCompatActivity() {
+class ConsejosAlimentariosMedico : BaseActivityMedico() {
 
     private lateinit var etHidratacion: EditText
     private lateinit var btnGuardarHidratacion: Button

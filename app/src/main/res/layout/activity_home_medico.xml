@@ -122,5 +122,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnHabitos" />
 
-    <include layout="@layout/toolbar_paciente" />
+    <include layout="@layout/toolbar_medico" />
 </androidx.constraintlayout.widget.ConstraintLayout>
