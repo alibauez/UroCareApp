@@ -52,6 +52,18 @@ class AgregarConsejoDialogFragment : DialogFragment() {
         return view
     }
 
+    // Asegúrate de ajustar el tamaño aquí
+    override fun onStart() {
+        super.onStart()
+
+        // Ajustar el tamaño del dialog
+        val dialog = dialog
+        dialog?.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.8).toInt(), // 80% del ancho de la pantalla
+            (resources.displayMetrics.heightPixels * 0.28).toInt() // 50% de la altura de la pantalla
+        )
+    }
+
     private fun obtenerPacientes() {
         val db = FirebaseFirestore.getInstance()
 
@@ -74,7 +86,6 @@ class AgregarConsejoDialogFragment : DialogFragment() {
                 Log.e("Firebase", "Error al obtener pacientes", e)
             }
     }
-
 
     private fun guardarConsejo(pacienteCorreo: String, nombre: String, descripcion: String) {
         val db = FirebaseFirestore.getInstance()

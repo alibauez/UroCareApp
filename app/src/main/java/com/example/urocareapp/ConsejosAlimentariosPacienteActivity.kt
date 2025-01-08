@@ -11,7 +11,7 @@ import com.example.urocareapp.modelo.ConsejosAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ConsejosAlimentariosPacienteActivity : AppCompatActivity() {
+class ConsejosAlimentariosPacienteActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ConsejosAdapter
@@ -20,11 +20,14 @@ class ConsejosAlimentariosPacienteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consejos_alimentarios_paciente)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         recyclerView = findViewById(R.id.consejosRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = ConsejosAdapter(consejosList)
+        adapter = ConsejosAdapter(consejosList) { consejo ->
+            eliminarConsejo(consejo) // Callback para eliminar el consejo
+        }
         recyclerView.adapter = adapter
 
         cargarConsejos()
@@ -47,7 +50,33 @@ class ConsejosAlimentariosPacienteActivity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al cargar los consejos", Toast.LENGTH_SHORT).show()
                 Log.e("Firebase", "Error al cargar los consejos", e)
-                e.printStackTrace() // Agregado para ver el error en el log
+                e.printStackTrace()
+            }
+    }
+
+    private fun eliminarConsejo(consejo: Consejo) {
+        val db = FirebaseFirestore.getInstance()
+        val pacienteCorreo = obtenerCorreoPacienteActual()
+
+        db.collection("pacientes")
+            .document(pacienteCorreo)
+            .collection("consejos")
+            .whereEqualTo("titulo", consejo.titulo)
+            .whereEqualTo("descripcion", consejo.descripcion)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val document = querySnapshot.documents[0]
+                    document.reference.delete()
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Consejo eliminado", Toast.LENGTH_SHORT).show()
+                            cargarConsejos() // Recargar los consejos después de eliminar
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error al eliminar el consejo", Toast.LENGTH_SHORT).show()
+                            Log.e("Firebase", "Error al eliminar el consejo", e)
+                        }
+                }
             }
     }
 

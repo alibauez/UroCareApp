@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:background="@android:color/white"
     android:padding="8dp"
-    android:background="@color/white"
-    android:layout_marginBottom="8dp">
+    android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/tituloTextView"
-        android:layout_width="wrap_content"
+    <!-- Contenedor para el título y descripción del consejo -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="Título del Consejo" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/descripcionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Descripción del consejo" />
+        <TextView
+            android:id="@+id/tituloTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Título del Consejo"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descripcionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción del consejo" />
+    </LinearLayout>
+
+    <!-- Botón de eliminar con ícono a la derecha -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/eliminarButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@android:color/white"
+        app:icon="@drawable/close"
+        app:iconTint="@android:color/holo_red_dark"
+        app:cornerRadius="24dp"
+        android:contentDescription="Eliminar"
+        android:layout_marginStart="8dp"/>
 </LinearLayout>

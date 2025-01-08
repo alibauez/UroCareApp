@@ -88,6 +88,7 @@
 
     <string name="acceptTerms">Acepto los términos y condiciones</string>
     <string name="text_event">Eventos de los próximos 30 días:</string>
+    <string name="listado_de_consejos_alimentarios">Listado de consejos Alimentarios</string>
 
 
     <string-array name="text_list">
