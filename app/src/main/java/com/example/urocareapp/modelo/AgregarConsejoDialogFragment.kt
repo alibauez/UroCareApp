@@ -20,7 +20,7 @@ class AgregarConsejoDialogFragment : DialogFragment() {
     private lateinit var nombreEditText: EditText
     private lateinit var descripcionEditText: EditText
     private lateinit var guardarButton: Button
-    private lateinit var pacientesList: MutableList<Paciente> // Lista de pacientes con nombre y correo
+    private lateinit var pacientesList: List<String> // Lista de correos de los pacientes
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +40,7 @@ class AgregarConsejoDialogFragment : DialogFragment() {
         guardarButton.setOnClickListener {
             val nombre = nombreEditText.text.toString()
             val descripcion = descripcionEditText.text.toString()
-
-            val pacienteCorreo = (pacienteSpinner.selectedItem as Paciente).correo
+            val pacienteCorreo = pacienteSpinner.selectedItem.toString()
 
             if (nombre.isNotEmpty() && descripcion.isNotEmpty() && pacienteCorreo.isNotEmpty()) {
                 guardarConsejo(pacienteCorreo, nombre, descripcion)
@@ -56,22 +55,18 @@ class AgregarConsejoDialogFragment : DialogFragment() {
     private fun obtenerPacientes() {
         val db = FirebaseFirestore.getInstance()
 
+        // Asegúrate de que pacientesList sea mutable
+        val pacientesList = mutableListOf<String>()  // Inicialización explícita de la lista mutable
+
         // Obtener la lista de pacientes (cuyos documentos tienen el correo como ID)
         db.collection("pacientes")
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    val nombre = document.getString("nombre") ?: "Sin nombre"
-                    val correo = document.id
-                    pacientesList.add(Paciente(nombre, correo))
+                    pacientesList.add(document.id)  // El ID es el correo del paciente
                 }
-
-                // Configurar el Spinner con los nombres de los pacientes
-                val adapter = ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    pacientesList.map { it.nombre } // Mostrar solo los nombres
-                )
+                // Configurar el Spinner con los correos de los pacientes
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, pacientesList)
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 pacienteSpinner.adapter = adapter
             }
@@ -79,6 +74,7 @@ class AgregarConsejoDialogFragment : DialogFragment() {
                 Log.e("Firebase", "Error al obtener pacientes", e)
             }
     }
+
 
     private fun guardarConsejo(pacienteCorreo: String, nombre: String, descripcion: String) {
         val db = FirebaseFirestore.getInstance()
@@ -104,7 +100,4 @@ class AgregarConsejoDialogFragment : DialogFragment() {
                 Log.e("Firebase", "Error al agregar consejo", e)
             }
     }
-
-    // Clase de datos que representa un paciente
-    data class Paciente(val nombre: String, val correo: String)
 }

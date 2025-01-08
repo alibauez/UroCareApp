@@ -1,6 +1,5 @@
 package com.example.urocareapp
 
-import ConsejosAdapter
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.modelo.Consejo
+import com.example.urocareapp.modelo.ConsejosAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -39,27 +39,20 @@ class ConsejosAlimentariosPacienteActivity : AppCompatActivity() {
             .collection("consejos")
             .get()
             .addOnSuccessListener { documents ->
-                consejosList.clear()
-                for (document in documents) {
-                    val consejo = document.toObject(Consejo::class.java)
-                    consejosList.add(consejo)
+                val nuevosConsejos = documents.mapNotNull { document ->
+                    document.toObject(Consejo::class.java)
                 }
-                adapter.notifyDataSetChanged()
+                adapter.actualizarConsejos(nuevosConsejos)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al cargar los consejos", Toast.LENGTH_SHORT).show()
                 Log.e("Firebase", "Error al cargar los consejos", e)
+                e.printStackTrace() // Agregado para ver el error en el log
             }
     }
 
-
     private fun obtenerCorreoPacienteActual(): String {
         val usuarioActual = FirebaseAuth.getInstance().currentUser
-        return if (usuarioActual != null) {
-            usuarioActual.email ?: "" // Devuelve el correo si está disponible, o una cadena vacía si no
-        } else {
-            ""
-        }
+        return usuarioActual?.email ?: ""
     }
-
 }
