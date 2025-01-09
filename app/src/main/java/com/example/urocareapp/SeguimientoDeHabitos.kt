@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
-class SeguimientoDeHabitos : AppCompatActivity() {
+class SeguimientoDeHabitos : BaseActivity() {
 
     private lateinit var descriptionText: TextView
     private lateinit var indicators: List<View>
@@ -16,6 +16,7 @@ class SeguimientoDeHabitos : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seguimiento_de_habitos)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // Lista de textos que rotarán en el TextView
         textList = resources.getStringArray(R.array.text_list4).toList()

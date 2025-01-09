@@ -5,19 +5,19 @@
       <SelectionState runConfigName="APLIACION UROCARE">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="CuidadosPostcirujia">
+      <SelectionState runConfigName="HomeMedico">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="PreparacionPreoperatorioSecundario">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
+      <SelectionState runConfigName="PreparacionPostoperatorioSecundario">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
       <SelectionState runConfigName="PantallaInfo">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="ConsejosAlimentarios">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="SeguimientoDeHabitos">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="HomePaciente">
+      <SelectionState runConfigName="CuidadosPostcirujia">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

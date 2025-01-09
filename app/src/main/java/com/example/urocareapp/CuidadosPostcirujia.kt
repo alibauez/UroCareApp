@@ -1,16 +1,19 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 
-class CuidadosPostcirujia: BaseActivity() {
+class CuidadosPostcirujia : BaseActivity() {
 
     private lateinit var descriptionText: TextView
     private lateinit var indicators: List<View>
     private var currentIndex = 0
     private lateinit var textList: List<String>
+    private lateinit var buttonNext: Button
     private var textRotationRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +21,6 @@ class CuidadosPostcirujia: BaseActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_cuidadospostcirujia)
         setSupportActionBar(findViewById(R.id.toolbar))
-
 
         // Lista de textos que rotarán en el TextView
         textList = resources.getStringArray(R.array.text_list2).toList()
@@ -30,12 +32,19 @@ class CuidadosPostcirujia: BaseActivity() {
             findViewById(R.id.indicator2),
             findViewById(R.id.indicator3)
         )
+        buttonNext = findViewById(R.id.buttonNext)
 
         // Llama a updateIndicators() aquí para inicializar los indicadores
         updateIndicators()
 
         // Iniciar la rotación de texto
         startTextRotation()
+
+        // Configurar el evento del botón "Siguiente"
+        buttonNext.setOnClickListener {
+            val intent = Intent(this, PreparacionPostoperatorioSecundario::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun startTextRotation() {
@@ -49,6 +58,7 @@ class CuidadosPostcirujia: BaseActivity() {
         }
         descriptionText.post(textRotationRunnable!!)
     }
+
     private fun updateIndicators() {
         indicators.forEachIndexed { index, view ->
             if (index == currentIndex) {
@@ -58,10 +68,9 @@ class CuidadosPostcirujia: BaseActivity() {
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         descriptionText.removeCallbacks(textRotationRunnable!!)
     }
-
-
 }

@@ -64,22 +64,23 @@
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:layout_margin="4dp"
-                 />
+                android:background="@drawable/indicator_border" />
 
             <View
                 android:id="@+id/indicator2"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:layout_margin="4dp"
-                />
+                android:background="@drawable/indicator_border" />
 
             <View
                 android:id="@+id/indicator3"
                 android:layout_width="8dp"
                 android:layout_height="8dp"
                 android:layout_margin="4dp"
-                />
+                android:background="@drawable/indicator_border" />
         </LinearLayout>
+
 
         <!-- Botón Siguiente -->
         <com.google.android.material.button.MaterialButton
