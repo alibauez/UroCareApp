@@ -1,7 +1,9 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -12,6 +14,7 @@ class ConsejosAlimentarios : BaseActivity() {
     private var currentIndex = 0
     private lateinit var textList: List<String>
     private var textRotationRunnable: Runnable? = null
+    private lateinit var nextButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,13 @@ class ConsejosAlimentarios : BaseActivity() {
             findViewById(R.id.indicator2),
             findViewById(R.id.indicator3)
         )
+
+        nextButton = findViewById(R.id.buttonNext)
+
+        nextButton.setOnClickListener {
+            val intentConsejos = Intent(this, ConsejosAlimentariosPacienteActivity::class.java)
+            startActivity(intentConsejos)
+        }
 
         // Llama a updateIndicators() aquí para inicializar los indicadores
         updateIndicators()
