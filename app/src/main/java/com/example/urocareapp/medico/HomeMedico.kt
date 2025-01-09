@@ -41,8 +41,8 @@ class HomeMedico : BaseActivityMedico() {
 
         // Abrir Control de Hábitos
         btnHabitos.setOnClickListener {
-            // val intent = Intent(this, HabitosSeguimientoActivity::class.java)
-            // startActivity(intent)
+             val intent = Intent(this, ListaPacientes::class.java)
+             startActivity(intent)
         }
 
         // Abrir Calendario Médico
