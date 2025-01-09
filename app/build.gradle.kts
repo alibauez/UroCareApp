@@ -59,6 +59,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
 
+    implementation("co.chatsdk.chatsdk:chat-sdk-core:5.2.1")
+    implementation("co.chatsdk.chatsdk:chat-sdk-firebase-adapter:5.2.1")
+    implementation("co.chatsdk.chatsdk:chat-sdk-firebase-ui:5.2.1")
+    implementation("co.chatsdk.chatsdk:chat-sdk-ui:5.2.1")
+
 
 
 }
