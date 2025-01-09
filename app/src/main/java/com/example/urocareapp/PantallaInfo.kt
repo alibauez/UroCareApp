@@ -1,7 +1,9 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 
@@ -11,9 +13,7 @@ class PantallaInfo : BaseActivity() {
     private lateinit var indicators: List<View>
     private var currentIndex = 0
     private lateinit var textList: List<String>
-
-
-
+    private lateinit var buttonNext: Button
 
     private var textRotationRunnable: Runnable? = null
 
@@ -21,6 +21,7 @@ class PantallaInfo : BaseActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_pantallainfo)
+
         // Lista de textos que rotarán en el TextView
         textList = resources.getStringArray(R.array.text_list).toList()
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -32,12 +33,19 @@ class PantallaInfo : BaseActivity() {
             findViewById(R.id.indicator2),
             findViewById(R.id.indicator3)
         )
+        buttonNext = findViewById(R.id.buttonNext)
 
         // Llama a updateIndicators() aquí para inicializar los indicadores
         updateIndicators()
 
         // Iniciar la rotación de texto
         startTextRotation()
+
+        // Configurar el evento del botón "Siguiente"
+        buttonNext.setOnClickListener {
+            val intent = Intent(this, PreparacionPreoperatorioSecundario::class.java)
+            startActivity(intent)
+        }
     }
 
     // Método para iniciar el cambio de texto cada 3 segundos

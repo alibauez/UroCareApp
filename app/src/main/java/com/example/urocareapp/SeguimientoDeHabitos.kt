@@ -1,29 +1,25 @@
 package com.example.urocareapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 
-class CuidadosPostcirujia : BaseActivity() {
+class SeguimientoDeHabitos : BaseActivity() {
 
     private lateinit var descriptionText: TextView
     private lateinit var indicators: List<View>
     private var currentIndex = 0
     private lateinit var textList: List<String>
-    private lateinit var buttonNext: Button
     private var textRotationRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_cuidadospostcirujia)
+        setContentView(R.layout.activity_seguimiento_de_habitos)
         setSupportActionBar(findViewById(R.id.toolbar))
 
         // Lista de textos que rotarán en el TextView
-        textList = resources.getStringArray(R.array.text_list2).toList()
+        textList = resources.getStringArray(R.array.text_list4).toList()
 
         // Vinculamos las vistas
         descriptionText = findViewById(R.id.descriptionText)
@@ -32,21 +28,15 @@ class CuidadosPostcirujia : BaseActivity() {
             findViewById(R.id.indicator2),
             findViewById(R.id.indicator3)
         )
-        buttonNext = findViewById(R.id.buttonNext)
 
-        // Llama a updateIndicators() aquí para inicializar los indicadores
+        // Inicializamos los indicadores
         updateIndicators()
 
         // Iniciar la rotación de texto
         startTextRotation()
-
-        // Configurar el evento del botón "Siguiente"
-        buttonNext.setOnClickListener {
-            val intent = Intent(this, PreparacionPostoperatorioSecundario::class.java)
-            startActivity(intent)
-        }
     }
 
+    // Método para iniciar el cambio de texto cada 3 segundos
     private fun startTextRotation() {
         textRotationRunnable = object : Runnable {
             override fun run() {
@@ -59,6 +49,7 @@ class CuidadosPostcirujia : BaseActivity() {
         descriptionText.post(textRotationRunnable!!)
     }
 
+    // Método para actualizar los indicadores
     private fun updateIndicators() {
         indicators.forEachIndexed { index, view ->
             if (index == currentIndex) {
@@ -69,6 +60,7 @@ class CuidadosPostcirujia : BaseActivity() {
         }
     }
 
+    // Evitar fugas de memoria al eliminar el runnable cuando la actividad se destruya
     override fun onDestroy() {
         super.onDestroy()
         descriptionText.removeCallbacks(textRotationRunnable!!)

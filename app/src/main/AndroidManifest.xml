@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UroCareApp"
         tools:targetApi="31">
+
         <activity
             android:name=".ConsejosAlimentariosPacienteActivity"
             android:exported="false" />
@@ -41,13 +42,25 @@
             android:exported="true" />
         <activity
             android:name=".PantallaInfo"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".CuidadosPostcirujia"
-            android:exported="true"></activity>
+            android:exported="true" />
+        <activity
+            android:name=".ConsejosAlimentarios"
+            android:exported="true" />
+        <activity
+            android:name=".SeguimientoDeHabitos"
+            android:exported="true" />
+        <activity
+            android:name=".PreparacionPreoperatorioSecundario"
+            android:exported="true" />
+        <activity
+            android:name=".PreparacionPostoperatorioSecundario"
+            android:exported="true" />
         <activity
             android:name=".PerfilPaciente"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
