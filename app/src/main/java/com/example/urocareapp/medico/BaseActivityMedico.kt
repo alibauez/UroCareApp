@@ -31,10 +31,10 @@ open class BaseActivityMedico : AppCompatActivity() {
                 startActivity(Intent(this, AuthActivity::class.java))
                 true
             }
-//            R.id.item_perfil -> {
-//                startActivity(Intent(this, PerfilPaciente::class.java))
-//                true
-//            }
+            R.id.item_perfil -> {
+                startActivity(Intent(this, PerfilMedico::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

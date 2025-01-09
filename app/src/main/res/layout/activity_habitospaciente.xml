@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="Registro de Hábitos Diarios"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textColor="@color/black" />
+
+        <!-- Litros de Agua -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="start|center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_hab"
+                app:tint="@color/black" /> <!-- Color más oscuro -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Litros de Agua"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etWaterLiters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="Introduce los litros de agua"
+            android:background="@color/background_color"
+            android:padding="12dp"
+            android:textColor="@color/black" />
+
+        <!-- Minutos de Actividad Física -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="start|center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_activity"
+                app:tint="@color/black" /> <!-- Color más oscuro -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minutos de Actividad Física"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/etPhysicalActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Introduce los minutos de actividad física"
+            android:background="@color/background_color"
+            android:padding="12dp"
+            android:textColor="@color/black" />
+
+        <!-- Medicación Tomada -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="start|center_vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_medication"
+                app:tint="@color/black" /> <!-- Color más oscuro -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Has tomado la medicación?"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/switchMedication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:trackTint="@color/secondary"
+            android:thumbTint="@color/primary" />
+
+        <TextView
+            android:id="@+id/tvSwitchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp" />
+
+        <!-- Botón de Guardar -->
+        <Button
+            android:id="@+id/btnSaveHabits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Hábitos"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/black"
+            android:padding="12dp" />
+
+    </LinearLayout>
+
+    <include layout="@layout/toolbar_paciente"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

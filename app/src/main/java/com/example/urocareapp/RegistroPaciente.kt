@@ -12,6 +12,7 @@ import com.example.urocareapp.medico.HomeMedico
 import com.example.urocareapp.medico.PerfilMedico
 import com.example.urocareapp.modelo.Alert
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -40,32 +41,57 @@ class RegistroPaciente : AppCompatActivity() {
 
 
 
+        // Función auxiliar para cargar datos desde un documento de Firestore
+        fun cargarDatosDesdeDocumento(document: DocumentSnapshot) {
+            nameEditText.setText(document.getString("nombre"))
+            surnameEditText.setText(document.getString("apellidos"))
+
+            // Convertir Timestamp a String para la fecha de nacimiento
+            val dobTimestamp = document.getTimestamp("fechaNacimiento")
+            if (dobTimestamp != null) {
+                val date = dobTimestamp.toDate()
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                dobEditText.setText(dateFormat.format(date))
+            }
+
+            // Configurar género
+            val gender = document.getString("genero")
+            if (gender != null) {
+                val genderIndex = genderOptions.indexOf(gender)
+                if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
+            }
+
+
+        }
+
         db.collection("pacientes").document(email.toString()).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    nameEditText.setText(document.getString("nombre"))
-                    surnameEditText.setText(document.getString("apellidos"))
-                    // Convertir Timestamp a String
-                    val dobTimestamp = document.getTimestamp("fechaNacimiento")
-                    if (dobTimestamp != null) {
-                        val date = dobTimestamp.toDate()
-                        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                        dobEditText.setText(dateFormat.format(date))
-                    }
-                    val gender = document.getString("genero")
-                    val bloodGroup = document.getString("grupoSanguineo")
-
-                    if (gender != null) {
-                        val genderIndex = genderOptions.indexOf(gender)
-                        if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
-                    }
-
-
+                    cargarDatosDesdeDocumento(document)
+                } else {
+                    db.collection("medicos").document(email.toString()).get()
+                        .addOnSuccessListener { medicoDocument ->
+                            if (medicoDocument.exists()) {
+                                cargarDatosDesdeDocumento(medicoDocument)
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "No se encontraron datos en pacientes ni en médicos.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error al cargar datos de médicos: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al cargar datos de pacientes: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+
+
+
 
 
         continueButton.setOnClickListener {
