@@ -2,8 +2,8 @@ package com.example.urocareapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.modelo.Consejo
@@ -15,6 +15,7 @@ class ConsejosAlimentariosPacienteActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ConsejosAdapter
+    private lateinit var tituloTextView: TextView
     private val consejosList = mutableListOf<Consejo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,10 @@ class ConsejosAlimentariosPacienteActivity : BaseActivity() {
         setContentView(R.layout.activity_consejos_alimentarios_paciente)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        // Inicializar vistas
         recyclerView = findViewById(R.id.consejosRecyclerView)
+        tituloTextView = findViewById(R.id.tituloTextView)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = ConsejosAdapter(consejosList) { consejo ->
@@ -45,7 +49,17 @@ class ConsejosAlimentariosPacienteActivity : BaseActivity() {
                 val nuevosConsejos = documents.mapNotNull { document ->
                     document.toObject(Consejo::class.java)
                 }
-                adapter.actualizarConsejos(nuevosConsejos)
+
+                consejosList.clear()
+                consejosList.addAll(nuevosConsejos)
+                adapter.notifyDataSetChanged()
+
+                // Cambiar texto dependiendo de si hay consejos o no
+                if (consejosList.isEmpty()) {
+                    tituloTextView.text = "No hay consejos disponibles"
+                } else {
+                    tituloTextView.text = getString(R.string.listado_de_consejos_alimentarios)
+                }
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al cargar los consejos", Toast.LENGTH_SHORT).show()
