@@ -82,6 +82,7 @@ class PreparacionPreoperatorioSecundario : BaseActivity() {
             text = description
             textSize = 14f
             setTextColor(Color.parseColor("#666666"))
+            justificationMode = android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
         }
 
         // Crear el ImageView
