@@ -90,6 +90,10 @@
             android:name=".medico.GraficasPaciente"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".medico.CalendarActivityMedico"
+            android:exported="true">
+        </activity>
         
     </application>
 

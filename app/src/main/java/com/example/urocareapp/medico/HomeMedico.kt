@@ -47,7 +47,7 @@ class HomeMedico : BaseActivityMedico() {
 
         // Abrir Calendario Médico
         btnCalendar.setOnClickListener {
-            val intent = Intent(this, CalendarActivity::class.java)
+            val intent = Intent(this, CalendarActivityMedico::class.java)
             startActivity(intent)
         }
     }

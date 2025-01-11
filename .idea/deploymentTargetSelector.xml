@@ -5,24 +5,6 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-<<<<<<< HEAD
-=======
-      <SelectionState runConfigName="RegistroPaciente">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="PerfilMedico">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="HabitosPaciente">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="ListaPacientes">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="GraficasPaciente">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
->>>>>>> albertoBranch
     </selectionStates>
   </component>
 </project>

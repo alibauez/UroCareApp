@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.medico
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.urocareapp.R
 import com.example.urocareapp.medico.BaseActivityMedico
 import com.example.urocareapp.modelo.Event
 import com.example.urocareapp.modelo.EventsAdapter
@@ -23,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CalendarActivity : BaseActivity() {
+class CalendarActivityMedico : BaseActivityMedico() {
 
     private lateinit var calendarView: CalendarView
     private lateinit var addEventButton: Button
@@ -41,7 +42,7 @@ class CalendarActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
-//        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
 
 
@@ -64,7 +65,7 @@ class CalendarActivity : BaseActivity() {
 
         // Back button listener
         btnBack.setOnClickListener {
-            val intentBack = Intent(this, HomePaciente::class.java)
+            val intentBack = Intent(this, HomeMedico::class.java)
             startActivity(intentBack)
         }
 
