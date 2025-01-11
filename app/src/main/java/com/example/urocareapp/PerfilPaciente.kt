@@ -31,8 +31,7 @@ class PerfilPaciente : BaseActivity() {
         val pesoTextView = findViewById<TextView>(R.id.etWeight)
 
         val bloodGroupSpinner = findViewById<Spinner>(R.id.spinnerBloodGroup)
-        val etHeight = findViewById<EditText>(R.id.etHeight)
-        val etWeight = findViewById<EditText>(R.id.etWeight)
+
         val birthDateTextView = findViewById<TextView>(R.id.tvDate)
         val btnSave = findViewById<Button>(R.id.btnSave)
         val btnChangePassword = findViewById<Button>(R.id.btnChangePassword) // Botón para cambiar contraseña
@@ -227,9 +226,24 @@ class PerfilPaciente : BaseActivity() {
             val updatedWeight = pesoTextView.text.toString()
             val updateBlood = bloodGroupSpinner.selectedItem.toString()
 
+            // Validar altura y peso
+            if (updatedHeight.isEmpty() || updatedWeight.isEmpty()) {
+                Toast.makeText(this, "Por favor ingresa todos los datos", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val heightValue = updatedHeight.toIntOrNull()
+            val weightValue = updatedWeight.toIntOrNull()
+
+            if (heightValue == null || weightValue == null ||
+                heightValue !in 0..250 || weightValue !in 0..250) {
+                Toast.makeText(this, "Altura y peso deben estar entre 0 y 250", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val userData = hashMapOf(
-                "altura" to updatedHeight,
-                "peso" to updatedWeight,
+                "altura" to heightValue.toString(),
+                "peso" to weightValue.toString(),
                 "grupoSanguineo" to updateBlood,
             )
 
@@ -246,6 +260,7 @@ class PerfilPaciente : BaseActivity() {
                     }
             }
         }
+
     }
 
     class AllergiesAdapter(private val allergies: List<String>) :

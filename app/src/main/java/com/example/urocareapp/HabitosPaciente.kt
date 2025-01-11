@@ -106,7 +106,6 @@ class HabitosPaciente : BaseActivity() {
 
         // Validar entrada de datos
         val waterLiters = etWaterLiters.text.toString().toFloatOrNull()
-        val roundedWaterLiters = String.format("%.2f", waterLiters).toDouble()
         val physicalActivityMinutes = etPhysicalActivity.text.toString().toIntOrNull()
         val medicationTaken = switchMedication.isChecked
 
@@ -114,6 +113,21 @@ class HabitosPaciente : BaseActivity() {
             Toast.makeText(this, "Por favor, completa todos los campos correctamente", Toast.LENGTH_SHORT).show()
             return
         }
+
+        // Validar rango de agua (0.0 a 10.0)
+        if (waterLiters < 0.0 || waterLiters > 10.0) {
+            etWaterLiters.error = "El valor debe estar entre 0.0 y 10.0"
+            return
+        }
+
+        // Validar rango de actividad física (0 a 500)
+        if (physicalActivityMinutes < 0 || physicalActivityMinutes > 500) {
+            etPhysicalActivity.error = "El valor debe estar entre 0 y 500"
+            return
+        }
+
+        // Redondear agua a 2 decimales
+        val roundedWaterLiters = String.format("%.2f", waterLiters).toDouble()
 
         // Crear los datos a guardar o modificar
         val habitData = hashMapOf(
@@ -134,6 +148,7 @@ class HabitosPaciente : BaseActivity() {
                 Toast.makeText(this, "Error al guardar hábitos: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
     private fun checkAndCreateDailyHabits() {
         val email = Firebase.auth.currentUser?.email ?: return
         val currentDate = getCurrentDate() // "yyyy-MM-dd"
