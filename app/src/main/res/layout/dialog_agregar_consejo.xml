@@ -1,64 +1,75 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <!-- Nombre para el Spinner -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seleccionar Paciente:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
-
-    <!-- Spinner para seleccionar paciente -->
-    <Spinner
-        android:id="@+id/pacienteSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- EditText para el nombre del consejo -->
-    <EditText
-        android:id="@+id/nombreEditText"
-        android:layout_width="match_parent"
-        android:hint="Nombre del consejo"
-        android:ems="10"
-        android:layout_marginTop="10dp"
-        android:paddingStart="32dp"
-        android:layout_height="30dp"
-        android:background="@drawable/edittext_rounded"
-
-        />
-
-    <!-- EditText para la descripción del consejo -->
-
-    <!-- Botón para guardar el consejo -->
-    <EditText
-        android:id="@+id/descripcionEditText"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@drawable/edittext_rounded"
-        android:ems="10"
-        android:layout_marginTop="10dp"
-
-        android:hint="Descripción del consejo"
-        android:paddingStart="32dp" />
-
-    <Button
-        android:id="@+id/guardarButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Guardar Consejo"
-        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:cornerRadius="15dp"
-        />
+        <!-- Nombre para el Spinner -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Paciente:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-</LinearLayout>
+        <!-- Spinner para seleccionar paciente -->
+        <Spinner
+            android:id="@+id/pacienteSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Spinner para seleccionar un consejo previamente enviado -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar Consejo Enviado:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp" />
+
+        <Spinner
+            android:id="@+id/consejosSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- EditText para el nombre del consejo -->
+        <EditText
+            android:id="@+id/nombreEditText"
+            android:layout_width="match_parent"
+            android:hint="Nombre del consejo"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:paddingStart="32dp"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_rounded" />
+
+        <!-- EditText para la descripción del consejo -->
+        <EditText
+            android:id="@+id/descripcionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edittext_rounded"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            android:hint="Descripción del consejo"
+            android:paddingStart="32dp" />
+
+        <!-- Botón para guardar el consejo -->
+        <Button
+            android:id="@+id/guardarButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Consejo"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+    </LinearLayout>
+</ScrollView>

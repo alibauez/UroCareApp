@@ -79,6 +79,7 @@ class AuthActivity : AppCompatActivity() {
         val btnResetPass = findViewById<Button>(R.id.btnResetPassword)
         val resetPasswordIntent = Intent(this, ResetPassActivity::class.java)
         val db = Firebase.firestore
+
         btnRegistro.setOnClickListener {
             if (email.text.isNotBlank() && passwd.text.isNotBlank()) {
                 // Registra al usuario en Firebase Authentication
@@ -104,8 +105,9 @@ class AuthActivity : AppCompatActivity() {
                             .document(email.text.toString())
                             .set(userData)
                             .addOnSuccessListener {
-                                // Redirige a la pantalla de registro
-                                val intent = Intent(this, RegistroPaciente::class.java)
+                                // Redirige a la pantalla de Términos y Condiciones
+                                val intent = Intent(this, TermsConditionsActivity::class.java)
+                                intent.putExtra("SOURCE", "REGISTER") // Indica que viene del registro
                                 startActivity(intent)
 
                                 // Limpia los campos de texto
@@ -123,8 +125,6 @@ class AuthActivity : AppCompatActivity() {
                 Alert.showAlert(this, "Por favor, completa todos los campos", Alert.AlertType.INFO)
             }
         }
-
-
 
         btnAcceder.setOnClickListener {
             if (email.text.isNotBlank() && passwd.text.isNotBlank()) {
@@ -181,6 +181,5 @@ class AuthActivity : AppCompatActivity() {
                 // Manejo de errores al consultar Firestore
                 Alert.showAlert(this, "Error al verificar el rol: ${exception.message}", Alert.AlertType.ERROR)
             }
-
     }
 }
