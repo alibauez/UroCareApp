@@ -20,6 +20,8 @@ dependencyResolutionManagement {
     }
 }
 
+
+
 rootProject.name = "UroCareApp"
 include(":app")
  

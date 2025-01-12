@@ -3,6 +3,7 @@ package com.example.urocareapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import com.example.urocareapp.chatbot.ChatActivity
 
 class HomePaciente : BaseActivity() {
 
@@ -11,6 +12,7 @@ class HomePaciente : BaseActivity() {
     private lateinit var btnCuidados: Button
     private lateinit var btnConsejos: Button
     private lateinit var btnHabitos: Button
+    private lateinit var btnChat: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,8 @@ class HomePaciente : BaseActivity() {
         btnCuidados = findViewById(R.id.btnCuidados)
         btnConsejos = findViewById(R.id.btnConsejos)
         btnHabitos = findViewById(R.id.btnHabitos)
+        btnChat = findViewById(R.id.btnChat)
+
         setup()
     }
 
@@ -47,6 +51,9 @@ class HomePaciente : BaseActivity() {
         }
         btnHabitos.setOnClickListener {
             startActivity(intentHabitos)
+        }
+        btnChat.setOnClickListener {
+            startActivity(Intent(this, ChatActivity::class.java))
         }
 
     }
