@@ -48,7 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Barra de progreso (ahora encima del botón) -->
 
     <!-- Botón "Siguiente" -->
 
@@ -66,7 +65,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dynamicContentLayout" />
 
-    <!-- Incluir la toolbar -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonNext"
         android:layout_width="match_parent"
@@ -74,7 +72,7 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/primary"
         android:text="Siguiente"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

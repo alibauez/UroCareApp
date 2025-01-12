@@ -18,16 +18,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- Imagen superior -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="411dp"
-            android:layout_height="200dp"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="Preparación preoperatoria"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_preparacion" />
 
         <!-- Título -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="424dp"
+            android:layout_height="225dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Preparación preoperatoria"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_preparacion" />
+
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
         <TextView
             android:id="@+id/descriptionText"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="Beber 8 vasos de agua al día durante 2 semanas antes del procedimiento."
@@ -51,38 +52,43 @@
             android:textSize="14sp" />
 
         <!-- Indicadores de progreso (puntos) -->
+
+
+        <!-- Botón Siguiente -->
         <LinearLayout
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:id="@+id/indicatorLayout"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <View
                 android:id="@+id/indicator1"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_margin="4dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/indicator_border" />
 
             <View
                 android:id="@+id/indicator2"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_margin="4dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/indicator_border" />
 
             <View
                 android:id="@+id/indicator3"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_margin="4dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="8dp"
                 android:background="@drawable/indicator_border" />
         </LinearLayout>
 
-
-        <!-- Botón Siguiente -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonNext"
             android:layout_width="351dp"
