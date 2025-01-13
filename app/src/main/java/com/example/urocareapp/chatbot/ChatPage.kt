@@ -1,9 +1,7 @@
 package com.example.urocareapp.chatbot
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -15,7 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -32,7 +29,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.urocareapp.R
 import com.example.urocareapp.chatbot.ui.theme.ColorModelMessage
 import com.example.urocareapp.chatbot.ui.theme.ColorUserMessage
-import com.example.urocareapp.chatbot.ui.theme.Purple80
+import com.example.urocareapp.chatbot.ui.theme.verde
 import com.example.urocareapp.HomePaciente
 import com.example.urocareapp.PerfilPaciente
 import com.example.urocareapp.AuthActivity
@@ -70,7 +67,7 @@ fun MessageList(modifier: Modifier = Modifier, messageList: List<MessageModel>) 
                 modifier = Modifier.size(60.dp),
                 painter = painterResource(id = R.drawable.baseline_question_answer_24),
                 contentDescription = "Icon",
-                tint = Purple80,
+                tint = verde,
             )
             Text(text = "Pregúntame algo", fontSize = 22.sp)
         }

@@ -14,7 +14,6 @@
         android:theme="@style/Theme.UroCareApp"
         tools:targetApi="31">
 
-
         <activity
             android:name=".chatbot.ChatActivity"
             android:exported="false" />
@@ -99,7 +98,5 @@
             android:name=".medico.CalendarActivityMedico"
             android:exported="true">
         </activity>
-        
     </application>
-
 </manifest>
