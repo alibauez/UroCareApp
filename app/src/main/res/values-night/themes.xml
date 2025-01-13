@@ -1,7 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.UroCareApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Color principal -->
+        <item name="colorPrimary">@color/primary_claro</item>
+
+        <!-- Otros colores clave -->
+        <item name="colorPrimaryVariant">@color/primary_claro</item>
+        <item name="colorOnPrimary">@color/primary_claro</item>
+        <item name="colorSecondary">@color/primary_claro</item>
+        <item name="colorOnSecondary">@color/primary_claro</item>
+
+        <!-- Personalización del marcado de texto -->
+        <item name="colorControlActivated">@color/primary_claro</item>
     </style>
+
 </resources>

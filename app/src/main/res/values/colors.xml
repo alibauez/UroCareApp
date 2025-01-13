@@ -5,6 +5,7 @@
     <color name="red">#FF1300</color>
     <color name="background_color">#E7ECEF</color>
     <color name="primary">#38E078</color>
+    <color name="highlight">#6BE79A</color>
     <color name="primary_claro">#1E38E078</color>
     <color name="fondoLogin">#16637587</color>
     <color name="grey">#808080</color>

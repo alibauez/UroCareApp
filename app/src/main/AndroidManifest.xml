@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/inicio"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UroCareApp"
+        android:theme="@style/Base.Theme.UroCareApp"
         tools:targetApi="31">
 
         <activity
@@ -65,9 +65,7 @@
         <activity
             android:name=".PerfilPaciente"
             android:exported="true" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+
         <activity
             android:name=".HomePaciente"
             android:exported="true" />

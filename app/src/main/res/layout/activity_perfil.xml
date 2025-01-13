@@ -132,6 +132,19 @@
             android:paddingStart="16dp"
             android:inputType="numberDecimal" />
 
+        <!-- Botón de Guardar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="130dp"
+            android:text="Guardar"
+            app:cornerRadius="15dp"
+            android:backgroundTint="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <!-- Alergias -->
         <TextView
             android:id="@+id/tvAllergiesTitle"
@@ -178,18 +191,7 @@
             android:layout_marginTop="8dp" />
     </LinearLayout>
 
-    <!-- Botón de Guardar -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Guardar"
-        app:cornerRadius="15dp"
-        android:backgroundTint="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/medicalInfoInputsContainer" />
+
 
     <!-- Información general -->
     <TextView
@@ -201,7 +203,7 @@
         android:text="Información general"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/btnSave"
+        app:layout_constraintTop_toBottomOf="@id/medicalInfoInputsContainer"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout

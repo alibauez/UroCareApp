@@ -1,8 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.UroCareApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Color principal -->
+        <item name="colorPrimary">@color/primary_claro</item>
+
+
+
+        <!-- Personalización del marcado de texto -->
+        <item name="colorControlActivated">@color/primary_claro</item>
+        <item name="android:textColorHighlight">@color/highlight</item> <!-- Este es el cambio importante -->
+
+        <!-- Fondo blanco para todas las pantallas -->
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <style name="Theme.UroCareApp" parent="Base.Theme.UroCareApp" />
