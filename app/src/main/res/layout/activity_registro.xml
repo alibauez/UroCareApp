@@ -114,6 +114,7 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary"
         android:text="Continuar"
+        app:cornerRadius="15dp"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -153,25 +153,28 @@
                 android:id="@+id/btnEditAllergies"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@android:color/black"
+                android:backgroundTint="@color/primary"
                 android:text="Editar"
+                app:cornerRadius="15dp"
                 android:textSize="10sp"
+                android:textColor="@android:color/black"
                 android:layout_marginEnd="8dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAñadirAllergies"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@android:color/black"
+                android:backgroundTint="@color/primary"
                 android:text="Añadir"
-                android:textColor="@android:color/white"
+                app:cornerRadius="15dp"
+                android:textColor="@android:color/black"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAllergies"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 
@@ -182,6 +185,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Guardar"
+        app:cornerRadius="15dp"
         android:backgroundTint="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -217,6 +221,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
             android:text="Datos personales"
+            app:cornerRadius="15dp"
             android:textColor="@android:color/black" />
 
         <com.google.android.material.button.MaterialButton
@@ -224,6 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:cornerRadius="15dp"
             android:backgroundTint="@color/primary"
             android:text="Cambiar contraseña"
             android:textColor="@android:color/black" />

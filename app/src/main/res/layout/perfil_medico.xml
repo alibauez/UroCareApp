@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
             android:text="Datos personales"
+            app:cornerRadius="15dp"
             android:textColor="@android:color/black" />
 
         <com.google.android.material.button.MaterialButton
@@ -93,6 +94,7 @@
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/primary"
             android:text="Cambiar contraseña"
+            app:cornerRadius="15dp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
