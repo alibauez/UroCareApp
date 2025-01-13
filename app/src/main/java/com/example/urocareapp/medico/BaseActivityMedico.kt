@@ -6,8 +6,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.urocareapp.AuthActivity
-import com.example.urocareapp.HomePaciente
-import com.example.urocareapp.PerfilPaciente
 import com.example.urocareapp.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -20,7 +18,6 @@ open class BaseActivityMedico : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection.
         return when (item.itemId) {
             R.id.item_home -> {
                 startActivity(Intent(this, HomeMedico::class.java))

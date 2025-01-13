@@ -1,7 +1,6 @@
 package com.example.urocareapp.medico
 
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.example.urocareapp.R
@@ -45,35 +44,28 @@ class GraficasPaciente : BaseActivityMedico() {
             return
         }
 
-
-
         db.collection("pacientes")
             .document(pacienteEmail)
             .get()
             .addOnSuccessListener { document ->
                 val nombre = document.getString("nombre") ?: "Paciente desconocido"
                 val apellidos = document.getString("apellidos") ?: ""
-
                 // Concatenar el nombre y los apellidos
                 val pacienteNombreCompleto = "$nombre $apellidos".trim()
-
                 tvPacienteNombre.text = "Paciente: $pacienteNombreCompleto"
             }
             .addOnFailureListener {
                 tvPacienteNombre.text = "Paciente: Desconocido"
             }
-
         loadHabitData(pacienteEmail)
-
     }
 
     private fun loadHabitData(email: String) {
         val habitsCollection = db.collection("pacientes").document(email).collection("habitos")
-        last7Days = getLast7Days()  // Aquí asignas last7Days
+        last7Days = getLast7Days()  // Aquí se asigna last7Days
 
         val aguaEntries = mutableListOf<BarEntry>()
         val actividadEntries = mutableListOf<BarEntry>()
-        val medicacionEntries = mutableListOf<PieEntry>()
 
         var yesCount = 0
         var noCount = 0
@@ -125,7 +117,6 @@ class GraficasPaciente : BaseActivityMedico() {
                 }
         }
     }
-
 
     private fun setupBarChart(chart: BarChart, entries: List<BarEntry>, label: String) {
         val dataSet = BarDataSet(entries, label)
@@ -205,7 +196,6 @@ class GraficasPaciente : BaseActivityMedico() {
             dates.add(dateFormat.format(calendar.time))
             calendar.add(Calendar.DAY_OF_YEAR, -1)
         }
-        return dates.reversed() // Reversa el orden para que el día actual sea el primero
+        return dates.reversed()
     }
 }
-

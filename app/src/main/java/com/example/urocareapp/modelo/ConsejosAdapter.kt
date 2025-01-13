@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.R
+
 class ConsejosAdapter(
     private val consejosList: MutableList<Consejo>,
     private val onDeleteClick: (Consejo) -> Unit // Nuevo parámetro para manejar la eliminación

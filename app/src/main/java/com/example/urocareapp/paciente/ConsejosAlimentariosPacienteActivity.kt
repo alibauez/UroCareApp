@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.urocareapp.BaseActivity
+import com.example.urocareapp.R
 import com.example.urocareapp.modelo.Consejo
 import com.example.urocareapp.modelo.ConsejosAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -39,7 +41,7 @@ class ConsejosAlimentariosPacienteActivity : BaseActivity() {
 
     private fun cargarConsejos() {
         val db = FirebaseFirestore.getInstance()
-        val pacienteCorreo = obtenerCorreoPacienteActual() // Implementar esta función para obtener el correo del paciente
+        val pacienteCorreo = obtenerCorreoPacienteActual()
 
         db.collection("pacientes")
             .document(pacienteCorreo)

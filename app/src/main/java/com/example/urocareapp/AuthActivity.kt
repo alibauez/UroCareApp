@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.urocareapp.medico.HomeMedico
 import com.example.urocareapp.modelo.Alert
+import com.example.urocareapp.paciente.HomePaciente
+import com.example.urocareapp.paciente.RegistroPaciente
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

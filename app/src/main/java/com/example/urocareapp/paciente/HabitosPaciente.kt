@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.example.urocareapp.BaseActivity
 import com.example.urocareapp.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
@@ -185,7 +185,4 @@ class HabitosPaciente : BaseActivity() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(Date())
     }
-
-
 }
-

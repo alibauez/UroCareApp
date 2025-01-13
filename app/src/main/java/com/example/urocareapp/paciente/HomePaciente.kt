@@ -1,8 +1,12 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import com.example.urocareapp.BaseActivity
+import com.example.urocareapp.CalendarActivity
+import com.example.urocareapp.R
+import com.example.urocareapp.SeguimientoDeHabitos
 import com.example.urocareapp.chatbot.ChatActivity
 
 class HomePaciente : BaseActivity() {
@@ -55,6 +59,5 @@ class HomePaciente : BaseActivity() {
         btnChat.setOnClickListener {
             startActivity(Intent(this, ChatActivity::class.java))
         }
-
     }
 }

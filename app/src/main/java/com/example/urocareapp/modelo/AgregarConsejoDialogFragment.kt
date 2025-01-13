@@ -68,17 +68,15 @@ class AgregarConsejoDialogFragment : DialogFragment() {
         guardarButton.setOnClickListener {
             guardarConsejo()
         }
-
         return view
     }
 
     override fun onStart() {
         super.onStart()
-
-        // Ajustar el tamaño del diálogo
+        // Ajustar el tamaño del diálog
         dialog?.window?.setLayout(
             (resources.displayMetrics.widthPixels * 0.8).toInt(),
-            (resources.displayMetrics.heightPixels * 0.28).toInt()
+            (resources.displayMetrics.heightPixels * 0.38).toInt()
         )
     }
 
@@ -206,6 +204,4 @@ class AgregarConsejoDialogFragment : DialogFragment() {
             Toast.makeText(requireContext(), "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }

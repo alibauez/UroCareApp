@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.urocareapp.modelo.Alert
+import com.example.urocareapp.paciente.PerfilPaciente
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

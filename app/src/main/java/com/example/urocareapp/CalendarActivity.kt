@@ -11,12 +11,11 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.urocareapp.medico.BaseActivityMedico
 import com.example.urocareapp.modelo.Event
 import com.example.urocareapp.modelo.EventsAdapter
+import com.example.urocareapp.paciente.HomePaciente
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,17 +42,12 @@ class CalendarActivity : BaseActivity() {
         setContentView(R.layout.activity_calendar)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-
         // Initialize views
         btnBack = findViewById(R.id.btnBack)
         calendarView = findViewById(R.id.calendarView)
         addEventButton = findViewById(R.id.addEventButton)
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
         textView4 = findViewById(R.id.textView4)
-
-
-
 
         // Setup RecyclerView
         eventsAdapter = EventsAdapter(eventsList) { event, position ->
@@ -85,9 +79,6 @@ class CalendarActivity : BaseActivity() {
         // Load initial events
         loadUpcomingEvents()
     }
-
-
-
 
     private fun showAddEventDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_event, null)
@@ -231,7 +222,6 @@ class CalendarActivity : BaseActivity() {
                 Toast.makeText(this, "Error al cargar eventos: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 
     private fun deleteEvent(event: Event, position: Int) {
         val userEmail = auth.currentUser?.email ?: return

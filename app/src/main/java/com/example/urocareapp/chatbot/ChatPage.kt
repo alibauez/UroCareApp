@@ -30,8 +30,8 @@ import com.example.urocareapp.R
 import com.example.urocareapp.chatbot.ui.theme.ColorModelMessage
 import com.example.urocareapp.chatbot.ui.theme.ColorUserMessage
 import com.example.urocareapp.chatbot.ui.theme.verde
-import com.example.urocareapp.HomePaciente
-import com.example.urocareapp.PerfilPaciente
+import com.example.urocareapp.paciente.HomePaciente
+import com.example.urocareapp.paciente.PerfilPaciente
 import com.example.urocareapp.AuthActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -42,7 +42,7 @@ fun ChatPage(modifier: Modifier = Modifier, viewModel: ChatViewModel) {
     Column(
         modifier = modifier
     ) {
-        AppHeader() // Agrega  Toolbar
+        AppHeader() //  Toolbar
         MessageList(
             modifier = Modifier.weight(1f),
             messageList = viewModel.messageList

@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -8,9 +8,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.example.urocareapp.BaseActivity
+import com.example.urocareapp.R
 import com.google.android.material.button.MaterialButton
 
-class PreparacionPostoperatorioSecundario : BaseActivity() {
+class PreparacionPreoperatorioSecundario : BaseActivity() {
 
     private lateinit var stepText: TextView
     private lateinit var dynamicContentLayout: LinearLayout
@@ -18,24 +20,28 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
     private lateinit var progressBar: ProgressBar
 
     private val steps = listOf(
-        Triple("Control del dolor",
-            "Utilizar analgésicos como paracetamol o AINEs en las primeras 48 horas. Si el dolor es intenso, considerar opioides a corto plazo y ajustar según sea necesario.",
-            R.drawable.ic_analgesicos),
+        Triple("Evaluación de la condición médica",
+            "Realizar un examen físico completo, análisis de sangre y orina, y una evaluación por imagen (como ecografía o TAC) para determinar el tamaño, ubicación y tipo de cálculo renal.",
+            R.drawable.evaluacionmedica
+        ),
+        Triple("Preparación para la anestesia",
+            "Consultar con el anestesista para revisar historial médico, posibles alergias y la medicación actual del paciente. Seguir las indicaciones para el ayuno preoperatorio.",
+            R.drawable.anestesia
+        ),
+        Triple("Hidratación adecuada",
+            "Asegurar que el paciente esté bien hidratado antes de la cirugía, a menos que se indique lo contrario. La hidratación ayuda a la dilución de los cálculos.",
+            R.drawable.hidratacion
+        ),
         Triple("Antibióticos profilácticos",
-            "Administrar antibióticos según el riesgo de infección y el perfil de sensibilidad local, asegurando que el paciente complete el ciclo indicado.",
-            R.drawable.ic_antibioticos),
-        Triple("Monitoreo de la diuresis",
-            "Vigilar la cantidad de orina y realizar análisis regulares para detectar obstrucción o infección. La hematuria es común, pero debe investigarse si persiste.",
-            R.drawable.ic_orinar),
-        Triple("Cuidado de las vías urinarias",
-            "Si se colocó un stent o catéter, monitorizar signos de infección o obstrucción. Retirar el stent según lo indicado y tratar la disuria o cólicos con medicamentos.",
-            R.drawable.ic_cateter)
+            "Administrar antibióticos profilácticos antes de la cirugía para prevenir infecciones, especialmente si existe riesgo elevado debido a la presencia de infecciones urinarias previas.",
+            R.drawable.ic_antibioticos
+        )
     )
     private var currentStepIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_preparacion_postoperatorio_secundario)
+        setContentView(R.layout.activity_preparacion_preoperatorio_secundario)
         setSupportActionBar(findViewById(R.id.toolbar))
 
         // Inicializar vistas
@@ -73,7 +79,9 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
         val titleTextView = TextView(this).apply {
             text = title
             textSize = 20f
-            setTextColor(ContextCompat.getColor(this@PreparacionPostoperatorioSecundario, R.color.black))
+            setTextColor(ContextCompat.getColor(this@PreparacionPreoperatorioSecundario,
+                R.color.black
+            ))
             setTypeface(typeface, Typeface.BOLD)
         }
 
@@ -82,6 +90,8 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
             text = description
             textSize = 18f
             setTextColor(Color.parseColor("#666666"))
+
+            //Incompatibilidad de version en justificationMode, pero aunque salga un warning, no afecta
             justificationMode = android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
         }
 
@@ -96,6 +106,7 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
             }
             scaleType = ImageView.ScaleType.CENTER_INSIDE // Ajusta la escala de la imagen dentro del ImageView
         }
+
 
         // Añadir el título, la descripción y la imagen al layout en el orden deseado
         dynamicContentLayout.addView(titleTextView)

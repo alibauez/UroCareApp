@@ -11,11 +11,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.urocareapp.R
-import com.example.urocareapp.medico.BaseActivityMedico
 import com.example.urocareapp.modelo.Event
 import com.example.urocareapp.modelo.EventsAdapter
 import com.google.firebase.auth.FirebaseAuth
@@ -32,11 +30,8 @@ class CalendarActivityMedico : BaseActivityMedico() {
     private lateinit var eventsAdapter: EventsAdapter
     private lateinit var btnBack: Button
     private lateinit var textView4: TextView
-
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-
-
     private val eventsList = mutableListOf<Event>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,17 +39,12 @@ class CalendarActivityMedico : BaseActivityMedico() {
         setContentView(R.layout.activity_calendar)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-
         // Initialize views
         btnBack = findViewById(R.id.btnBack)
         calendarView = findViewById(R.id.calendarView)
         addEventButton = findViewById(R.id.addEventButton)
         eventsRecyclerView = findViewById(R.id.eventsRecyclerView)
         textView4 = findViewById(R.id.textView4)
-
-
-
 
         // Setup RecyclerView
         eventsAdapter = EventsAdapter(eventsList) { event, position ->
@@ -78,17 +68,11 @@ class CalendarActivityMedico : BaseActivityMedico() {
             Toast.makeText(this, "Fecha seleccionada: $formattedDate", Toast.LENGTH_SHORT).show()
         }
 
-        // Add event button listener
         addEventButton.setOnClickListener {
             showAddEventDialog()
         }
-
-        // Load initial events
         loadUpcomingEvents()
     }
-
-
-
 
     private fun showAddEventDialog() {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_event, null)
@@ -107,7 +91,6 @@ class CalendarActivityMedico : BaseActivityMedico() {
                 val date = "$selectedDay/${selectedMonth + 1}/$selectedYear"
                 dateTextView.text = date
             }, year, month, day)
-
             datePickerDialog.show()
         }
 
@@ -120,7 +103,6 @@ class CalendarActivityMedico : BaseActivityMedico() {
                 val time = String.format("%02d:%02d", selectedHour, selectedMinute)
                 timeTextView.text = time
             }, hour, minute, false)
-
             timePickerDialog.show()
         }
 
@@ -184,7 +166,7 @@ class CalendarActivityMedico : BaseActivityMedico() {
             }.time
             eventDate != null && eventDate in currentDate..futureDate
         } catch (e: Exception) {
-            false // Si hay un error al analizar la fecha, considera que no está dentro del rango
+            false
         }
     }
 
@@ -216,7 +198,7 @@ class CalendarActivityMedico : BaseActivityMedico() {
                     val event = document.toObject(Event::class.java)
                     event.id = document.id
                     try {
-                        // Parse the event date and compare it
+                        // Parse the event date and compare
                         val eventDate = dateFormat.parse(event.date)
                         if (eventDate != null && eventDate in currentDate..futureDate) {
                             eventsList.add(event)

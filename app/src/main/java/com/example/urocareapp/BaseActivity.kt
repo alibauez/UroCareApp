@@ -1,12 +1,12 @@
 package com.example.urocareapp
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.urocareapp.paciente.HomePaciente
+import com.example.urocareapp.paciente.PerfilPaciente
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

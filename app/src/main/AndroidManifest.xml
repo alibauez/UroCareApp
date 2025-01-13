@@ -18,7 +18,7 @@
             android:name=".chatbot.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ConsejosAlimentariosPacienteActivity"
+            android:name=".paciente.ConsejosAlimentariosPacienteActivity"
             android:exported="false" />
         <activity
             android:name=".ChangePassActivity"
@@ -45,35 +45,35 @@
             android:name=".medico.HomeMedico"
             android:exported="true" />
         <activity
-            android:name=".PantallaInfo"
+            android:name=".paciente.PantallaInfo"
             android:exported="true" />
         <activity
-            android:name=".CuidadosPostcirujia"
+            android:name=".paciente.CuidadosPostcirujia"
             android:exported="true" />
         <activity
-            android:name=".ConsejosAlimentarios"
+            android:name=".paciente.ConsejosAlimentarios"
             android:exported="true" />
         <activity
             android:name=".SeguimientoDeHabitos"
             android:exported="true" />
         <activity
-            android:name=".PreparacionPreoperatorioSecundario"
+            android:name=".paciente.PreparacionPreoperatorioSecundario"
             android:exported="true" />
         <activity
-            android:name=".PreparacionPostoperatorioSecundario"
+            android:name=".paciente.PreparacionPostoperatorioSecundario"
             android:exported="true" />
         <activity
-            android:name=".PerfilPaciente"
+            android:name=".paciente.PerfilPaciente"
             android:exported="true" />
 
         <activity
-            android:name=".HomePaciente"
+            android:name=".paciente.HomePaciente"
             android:exported="true" />
         <activity
             android:name=".AuthActivity"
             android:exported="true" />
         <activity
-            android:name=".RegistroPaciente"
+            android:name=".paciente.RegistroPaciente"
             android:exported="true">
         </activity>
         <activity
@@ -81,7 +81,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".HabitosPaciente"
+            android:name=".paciente.HabitosPaciente"
             android:exported="true">
         </activity>
         <activity

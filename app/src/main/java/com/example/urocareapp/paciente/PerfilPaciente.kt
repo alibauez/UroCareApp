@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.app.Dialog
 import android.content.Intent
@@ -11,6 +11,9 @@ import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.urocareapp.BaseActivity
+import com.example.urocareapp.ChangePassActivity
+import com.example.urocareapp.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.SetOptions
@@ -34,7 +37,7 @@ class PerfilPaciente : BaseActivity() {
 
         val birthDateTextView = findViewById<TextView>(R.id.tvDate)
         val btnSave = findViewById<Button>(R.id.btnSave)
-        val btnChangePassword = findViewById<Button>(R.id.btnChangePassword) // Botón para cambiar contraseña
+        val btnChangePassword = findViewById<Button>(R.id.btnChangePassword)
 
         val db = Firebase.firestore
         val user1 = Firebase.auth.currentUser
@@ -43,9 +46,6 @@ class PerfilPaciente : BaseActivity() {
         val allergies = mutableListOf<String>()
         val btnAñadirAllergies = findViewById<Button>(R.id.btnAñadirAllergies)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewAllergies)
-
-
-
         val email = Firebase.auth.currentUser?.email
 
         // Configurar botón para cambiar contraseña
@@ -102,9 +102,6 @@ class PerfilPaciente : BaseActivity() {
                 // Elimina el ítem de la lista local
                 val removedAllergy = allergies.removeAt(position)
                 recyclerView.adapter?.notifyItemRemoved(position)
-
-
-
                 email?.let {
                     db.collection("pacientes")
                         .document(email)
@@ -183,20 +180,12 @@ class PerfilPaciente : BaseActivity() {
             dialog.show()
         }
 
-
-
-
-
-
         // Botón para navegar a la pantalla de registro
         val personalDataButton: Button = findViewById(R.id.btnPersonalData)
         personalDataButton.setOnClickListener {
             val intent = Intent(this, RegistroPaciente::class.java)
             startActivity(intent)
         }
-
-
-
 
         // Cargar las opciones del Spinner desde el recurso strings.xml
         val bloodGroupOptions = resources.getStringArray(R.array.blood_group_options)
@@ -317,10 +306,4 @@ class PerfilPaciente : BaseActivity() {
 
         override fun getItemCount(): Int = allergies.size
     }
-
-
-
-
-
-
 }

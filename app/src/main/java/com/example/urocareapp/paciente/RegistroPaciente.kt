@@ -1,4 +1,4 @@
-package com.example.urocareapp
+package com.example.urocareapp.paciente
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -9,12 +9,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.urocareapp.medico.HomeMedico
+import com.example.urocareapp.R
 import com.example.urocareapp.medico.PerfilMedico
-import com.example.urocareapp.modelo.Alert
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.ktx.firestore
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -40,8 +38,6 @@ class RegistroPaciente : AppCompatActivity() {
         val genderAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         genderSpinner.adapter = genderAdapter
-
-
 
         dobEditText.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -75,8 +71,6 @@ class RegistroPaciente : AppCompatActivity() {
                 val genderIndex = genderOptions.indexOf(gender)
                 if (genderIndex >= 0) genderSpinner.setSelection(genderIndex)
             }
-
-
         }
 
         db.collection("pacientes").document(email.toString()).get()
@@ -104,10 +98,6 @@ class RegistroPaciente : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error al cargar datos de pacientes: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
-
-
-
 
         continueButton.setOnClickListener {
             val name = nameEditText.text.toString().trim()
@@ -184,8 +174,5 @@ class RegistroPaciente : AppCompatActivity() {
                 }
             }
         }
-
-
-
     }
 }

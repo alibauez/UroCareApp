@@ -3,13 +3,10 @@ package com.example.urocareapp.medico
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import com.example.urocareapp.CalendarActivity
 import com.example.urocareapp.R
 import com.example.urocareapp.modelo.AgregarConsejoDialogFragment
 
 class HomeMedico : BaseActivityMedico() {
-
-
     private lateinit var addAdvice: Button
     private lateinit var btnHabitos: Button
     private lateinit var btnCalendar: Button
@@ -18,7 +15,6 @@ class HomeMedico : BaseActivityMedico() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_medico)
         setSupportActionBar(findViewById(R.id.toolbar))
-
 
         // Asociar los botones con las vistas del XML
         addAdvice = findViewById(R.id.addAdvice)
@@ -37,8 +33,6 @@ class HomeMedico : BaseActivityMedico() {
     }
 
     private fun setupListeners() {
-
-
         // Abrir Control de Hábitos
         btnHabitos.setOnClickListener {
              val intent = Intent(this, ListaPacientes::class.java)
