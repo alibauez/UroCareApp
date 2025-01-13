@@ -1,5 +1,6 @@
 package com.example.urocareapp
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.*
@@ -15,6 +16,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 class RegistroPaciente : AppCompatActivity() {
@@ -28,7 +30,7 @@ class RegistroPaciente : AppCompatActivity() {
 
         val nameEditText: EditText = findViewById(R.id.etName)
         val surnameEditText: EditText = findViewById(R.id.etSurname)
-        val dobEditText: EditText = findViewById(R.id.etDob)
+        val dobEditText: TextView = findViewById(R.id.etDob)
         val genderSpinner: Spinner = findViewById(R.id.spinnerGender)
 
         val continueButton: Button = findViewById(R.id.btnContinue)
@@ -40,6 +42,19 @@ class RegistroPaciente : AppCompatActivity() {
         genderSpinner.adapter = genderAdapter
 
 
+
+        dobEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                val date = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                dobEditText.text = date
+            }, year, month, day)
+            datePickerDialog.show()
+        }
 
         // Función auxiliar para cargar datos desde un documento de Firestore
         fun cargarDatosDesdeDocumento(document: DocumentSnapshot) {
@@ -100,7 +115,6 @@ class RegistroPaciente : AppCompatActivity() {
             val dob = dobEditText.text.toString().trim()
             val gender = genderSpinner.selectedItem.toString()
 
-
             if (name.isEmpty() || surname.isEmpty() || dob.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos obligatorios.", Toast.LENGTH_SHORT).show()
             } else {
@@ -108,6 +122,12 @@ class RegistroPaciente : AppCompatActivity() {
                     // Parsear la fecha de nacimiento a un objeto Date
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                     val dobDate = dateFormat.parse(dob)
+
+                    // Validar que la fecha de nacimiento no sea futura
+                    if (dobDate.after(Calendar.getInstance().time)) {
+                        Toast.makeText(this, "La fecha de nacimiento no puede ser una fecha futura.", Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
 
                     // Convertir Date a Timestamp
                     val dobTimestamp = dobDate?.let { Timestamp(it) }
@@ -117,7 +137,6 @@ class RegistroPaciente : AppCompatActivity() {
                         "apellidos" to surname,
                         "fechaNacimiento" to dobTimestamp,
                         "genero" to gender,
-
                     )
 
                     db.collection("medicos") // Verifica que estés usando el nombre correcto "medicos"
@@ -157,10 +176,8 @@ class RegistroPaciente : AppCompatActivity() {
                                         // Finaliza la actividad actual para que no quede en el stack
                                         finish()
                                     }
-
                             }
                         }
-
 
                 } catch (e: Exception) {
                     Toast.makeText(this, "Formato de fecha inválido. Usa dd/MM/yyyy.", Toast.LENGTH_SHORT).show()
@@ -169,7 +186,6 @@ class RegistroPaciente : AppCompatActivity() {
         }
 
 
+
     }
-
-
 }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@android:color/white"
     tools:context=".RegistroPaciente">
 
@@ -23,7 +22,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+    <!-- Título Nombre -->
+    <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp" />
 
     <!-- Campo Nombre -->
     <EditText
@@ -32,13 +42,26 @@
         android:layout_marginRight="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Nombre"
+        android:hint="Escribe tu nombre"
         android:background="@color/background_color"
         android:padding="12dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvNameLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Título Apellidos -->
+    <TextView
+        android:id="@+id/tvSurnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apellidos"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/etName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp" />
 
     <!-- Campo Apellidos -->
@@ -48,13 +71,26 @@
         android:layout_marginRight="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Apellidos"
+        android:hint="Escribe tus apellidos"
         android:background="@color/background_color"
         android:padding="12dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/etName"
+        app:layout_constraintTop_toBottomOf="@id/tvSurnameLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Título Fecha de Nacimiento -->
+    <TextView
+        android:id="@+id/tvDobLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha de Nacimiento"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/etSurname"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp" />
 
     <!-- Campo Fecha de Nacimiento -->
@@ -64,20 +100,18 @@
         android:layout_marginRight="16dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Día/Mes/Año"
+        android:hint="Selecciona tu fecha de nacimiento"
         android:background="@color/background_color"
         android:padding="12dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/etSurname"
+        app:layout_constraintTop_toBottomOf="@id/tvDobLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="8dp" />
 
-    <!-- Spinner Género -->
+    <!-- Título Género -->
     <TextView
         android:id="@+id/tvGenderLabel"
-        android:layout_marginLeft="16dp"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Género"
@@ -85,8 +119,10 @@
         android:textColor="@android:color/black"
         app:layout_constraintTop_toBottomOf="@id/etDob"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp" />
 
+    <!-- Spinner Género -->
     <Spinner
         android:id="@+id/spinnerGender"
         android:layout_marginLeft="16dp"
@@ -100,10 +136,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-
-
-    <!-- Spinner Grupo Sanguíneo -->
-
     <!-- Botón Continuar -->
     <Button
         android:id="@+id/btnContinue"
@@ -115,7 +147,7 @@
         android:backgroundTint="@color/primary"
         android:text="Continuar"
         app:cornerRadius="15dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerGender" />

@@ -29,7 +29,7 @@ class PacientesAdapter(
         private val tvNombre: TextView = itemView.findViewById(R.id.tvPacienteNombre)
 
         fun bind(paciente: Paciente, onItemClick: (Paciente) -> Unit) {
-            tvNombre.text = paciente.nombre
+            tvNombre.text = paciente.nombreCompleto
             itemView.setOnClickListener { onItemClick(paciente) }
         }
     }

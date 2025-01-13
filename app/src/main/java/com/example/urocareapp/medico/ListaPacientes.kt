@@ -39,7 +39,9 @@ class ListaPacientes : BaseActivityMedico() {
                 for (document in result) {
                     val nombre = document.getString("nombre") ?: "Sin nombre"
                     val email = document.id
-                    pacientesList.add(Paciente(nombre, email))
+                    val apellidos = document.getString("apellidos") ?: "Sin apellidos"
+                    val nombreCompleto = "$nombre $apellidos"
+                    pacientesList.add(Paciente(nombreCompleto, email))
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -49,4 +51,4 @@ class ListaPacientes : BaseActivityMedico() {
     }
 }
 
-data class Paciente(val nombre: String, val email: String)
+data class Paciente(val nombreCompleto: String, val email: String)

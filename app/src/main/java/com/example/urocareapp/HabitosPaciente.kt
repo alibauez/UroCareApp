@@ -1,5 +1,6 @@
 package com.example.urocareapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -48,7 +49,10 @@ class HabitosPaciente : BaseActivity() {
         // Acción del botón "Guardar o Modificar Hábitos"
         btnSaveHabits.setOnClickListener {
             saveOrUpdateHabits()
+            val intentHome= Intent(this, HomePaciente::class.java)
+            startActivity(intentHome)
         }
+
         checkAndCreateDailyHabits()
 
         switchMedication.setOnCheckedChangeListener { _, isChecked ->
@@ -59,12 +63,6 @@ class HabitosPaciente : BaseActivity() {
             }
         }
     }
-
-
-
-
-
-
 
     private fun loadExistingHabits() {
         if (currentUserEmail == null) {
@@ -88,9 +86,6 @@ class HabitosPaciente : BaseActivity() {
                     etWaterLiters.setText(waterLiters.toString())
                     etPhysicalActivity.setText(physicalActivity.toString())
                     switchMedication.isChecked = medication
-
-                    // Cambiar el texto del botón para indicar que se está modificando
-//                    btnSaveHabits.text = "Modificar Hábitos"
                 }
             }
             .addOnFailureListener { e ->
