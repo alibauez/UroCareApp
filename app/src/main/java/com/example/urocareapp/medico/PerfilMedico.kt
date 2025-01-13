@@ -29,7 +29,7 @@ class PerfilMedico : BaseActivityMedico() {
 
         // Configurar botón para cambiar contraseña
         btnChangePassword.setOnClickListener {
-            val intent = Intent(this, ChangePassActivity::class.java)
+            val intent = Intent(this, ChangePassActivityMedico::class.java)
             startActivity(intent)
         }
 
