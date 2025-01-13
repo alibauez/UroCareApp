@@ -31,6 +31,7 @@ class GraficasPaciente : BaseActivityMedico() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_graficas_paciente)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         tvPacienteNombre = findViewById(R.id.tvPacienteNombre)
         chartAgua = findViewById(R.id.chartAgua)
@@ -44,10 +45,7 @@ class GraficasPaciente : BaseActivityMedico() {
             return
         }
 
-        val btnBack: ImageButton = findViewById(R.id.btnBack)
-        btnBack.setOnClickListener {
-            onBackPressed()
-        }
+
 
         db.collection("pacientes")
             .document(pacienteEmail)
@@ -88,30 +86,24 @@ class GraficasPaciente : BaseActivityMedico() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
+                        // La subcolección existe; verifica valores específicos
                         val agua = document.getDouble("agua") ?: 0.0
                         val actividad = document.getLong("actividadFisica")?.toFloat() ?: 0f
+                        val medicacion = document.getBoolean("medicacion") // Puede ser null, true o false
 
-                        val medicacion = when {
-                            document.getBoolean("medicacion") == true -> {
-                                yesCount++
-                                1
-                            }
-                            document.getBoolean("medicacion") == false -> {
-                                noCount++
-                                0
-                            }
-                            else -> {
-                                noCount++
-                                0
-                            }
+                        // Lógica para contar "Sí" y "No"
+                        if (medicacion == true) {
+                            yesCount++
+                        } else {
+                            noCount++
                         }
 
                         // Asignación de datos para las gráficas de barra
                         aguaEntries.add(BarEntry(xAxisIndex.toFloat(), agua.toFloat()))
                         actividadEntries.add(BarEntry(xAxisIndex.toFloat(), actividad))
-
-                        // Asignación de datos para la gráfica de medicación (PieChart)
-                        medicacionEntries.add(PieEntry(medicacion.toFloat(), if (medicacion == 1) "Sí" else "No"))
+                    } else {
+                        // La subcolección no existe; cuenta como NO
+                        noCount++
                     }
 
                     processedDays++
@@ -133,6 +125,7 @@ class GraficasPaciente : BaseActivityMedico() {
                 }
         }
     }
+
 
     private fun setupBarChart(chart: BarChart, entries: List<BarEntry>, label: String) {
         val dataSet = BarDataSet(entries, label)
