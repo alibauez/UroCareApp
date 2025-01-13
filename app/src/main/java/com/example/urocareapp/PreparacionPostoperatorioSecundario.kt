@@ -72,7 +72,7 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
         // Crear el título
         val titleTextView = TextView(this).apply {
             text = title
-            textSize = 16f
+            textSize = 20f
             setTextColor(ContextCompat.getColor(this@PreparacionPostoperatorioSecundario, R.color.black))
             setTypeface(typeface, Typeface.BOLD)
         }
@@ -80,7 +80,7 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
         // Crear la descripción
         val descriptionTextView = TextView(this).apply {
             text = description
-            textSize = 14f
+            textSize = 18f
             setTextColor(Color.parseColor("#666666"))
             justificationMode = android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
         }
@@ -89,11 +89,12 @@ class PreparacionPostoperatorioSecundario : BaseActivity() {
         val imageView = ImageView(this).apply {
             setImageResource(imageRes) // Asigna la imagen
             layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Ajusta el ancho al contenido
+                1000 // Define una altura específica en píxeles (puedes ajustarlo según necesites)
             ).apply {
                 setMargins(0, 16, 0, 16) // Márgenes alrededor de la imagen
             }
+            scaleType = ImageView.ScaleType.CENTER_INSIDE // Ajusta la escala de la imagen dentro del ImageView
         }
 
         // Añadir el título, la descripción y la imagen al layout en el orden deseado

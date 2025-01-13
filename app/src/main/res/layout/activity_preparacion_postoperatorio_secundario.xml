@@ -17,7 +17,7 @@
         android:layout_marginTop="68dp"
         android:text="Actividades postoperatorias"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginStart="16dp"
         android:text="Cuidados 1 de 4"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/titleText"
         app:layout_constraintStart_toStartOf="parent" />
@@ -60,6 +60,7 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="0"
+        android:progressTint="@color/highlight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

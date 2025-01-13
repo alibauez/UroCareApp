@@ -22,10 +22,10 @@ class PreparacionPreoperatorioSecundario : BaseActivity() {
             "Realizar un examen físico completo, análisis de sangre y orina, y una evaluación por imagen (como ecografía o TAC) para determinar el tamaño, ubicación y tipo de cálculo renal.",
             R.drawable.evaluacionmedica),
         Triple("Preparación para la anestesia",
-            "Consultar con el anestesista para revisar historial médico, posibles alergias y la medicación actual del paciente. Asegurarse de que el paciente siga las indicaciones para el ayuno preoperatorio.",
+            "Consultar con el anestesista para revisar historial médico, posibles alergias y la medicación actual del paciente. Seguir las indicaciones para el ayuno preoperatorio.",
             R.drawable.anestesia),
         Triple("Hidratación adecuada",
-            "Asegurar que el paciente esté bien hidratado antes de la cirugía, a menos que se indique lo contrario. La hidratación ayuda a la dilución de los cálculos y a la reducción de complicaciones.",
+            "Asegurar que el paciente esté bien hidratado antes de la cirugía, a menos que se indique lo contrario. La hidratación ayuda a la dilución de los cálculos.",
             R.drawable.hidratacion),
         Triple("Antibióticos profilácticos",
             "Administrar antibióticos profilácticos antes de la cirugía para prevenir infecciones, especialmente si existe riesgo elevado debido a la presencia de infecciones urinarias previas.",
@@ -72,7 +72,7 @@ class PreparacionPreoperatorioSecundario : BaseActivity() {
         // Crear el título
         val titleTextView = TextView(this).apply {
             text = title
-            textSize = 16f
+            textSize = 20f
             setTextColor(ContextCompat.getColor(this@PreparacionPreoperatorioSecundario, R.color.black))
             setTypeface(typeface, Typeface.BOLD)
         }
@@ -80,7 +80,7 @@ class PreparacionPreoperatorioSecundario : BaseActivity() {
         // Crear la descripción
         val descriptionTextView = TextView(this).apply {
             text = description
-            textSize = 14f
+            textSize = 18f
             setTextColor(Color.parseColor("#666666"))
             justificationMode = android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
         }
@@ -89,12 +89,14 @@ class PreparacionPreoperatorioSecundario : BaseActivity() {
         val imageView = ImageView(this).apply {
             setImageResource(imageRes) // Asigna la imagen
             layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Ajusta el ancho al contenido
+                1000 // Define una altura específica en píxeles (puedes ajustarlo según necesites)
             ).apply {
                 setMargins(0, 16, 0, 16) // Márgenes alrededor de la imagen
             }
+            scaleType = ImageView.ScaleType.CENTER_INSIDE // Ajusta la escala de la imagen dentro del ImageView
         }
+
 
         // Añadir el título, la descripción y la imagen al layout en el orden deseado
         dynamicContentLayout.addView(titleTextView)
