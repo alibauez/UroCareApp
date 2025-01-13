@@ -41,7 +41,7 @@ class CalendarActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calendar)
-//        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
 
 
